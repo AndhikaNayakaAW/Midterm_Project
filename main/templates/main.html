@@ -1,6 +1,46 @@
-<h5>Project Name: </h5>
-<p>{{ projectname }}<p>
-<h5>Group Members: </h5>
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Restaurant List</h1>
+
+{% if not resto_entries %}
+<p>There are no restaurants in the database.</p>
+
+{% else %}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Island</th>
+    <th>Cuisine</th>
+    <th>Description</th>
+  </tr>
+  {% for restaurant in resto_entries %}
+  <tr>
+    <td>{{ restaurant.Name }}</td>
+    <td>{{ restaurant.Island }}</td>
+    <td>{{ restaurant.Cuisine }}</td>
+    <td>{{ restaurant.Description }}</td>
+    <td>
+      <a href="{% url 'main:edit_restaurant' restaurant.pk %}">
+          <button>
+              Edit
+          </button>
+      </a>
+  </td>
+  <td>
+      <a href="{% url 'main:delete_restaurant' restaurant.pk %}">
+          <button>
+              Delete
+          </button>
+      </a>
+  </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<br />
+
+<a href="{% url 'main:create_restaurant_entry' %}">
+  <button>Add New Restaurant</button>
+</a>
+{% endblock %}
