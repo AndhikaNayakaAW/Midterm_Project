@@ -43,4 +43,8 @@
 <a href="{% url 'main:create_restaurant_entry' %}">
   <button>Add New Restaurant</button>
 </a>
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+<h5>Last login session: {{ last_login }}</h5>
 {% endblock %}
