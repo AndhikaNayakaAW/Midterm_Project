@@ -15,9 +15,10 @@ from django.urls import reverse
 
 @login_required(login_url='/login')
 def show_main(request):
-    resto_entries = Restaurants.objects.all()
+    resto_entries = Restaurants.objects.filter(user=request.user)
 
     context = {
+        'name': request.user.username,
         'resto_entries': resto_entries,
         'last_login': request.COOKIES.get('last_login', 'Not set'),
     }
@@ -26,9 +27,13 @@ def show_main(request):
 
 def create_restaurant_entry(request):
     form = RestoEntryForm(request.POST or None)
+
     if form.is_valid() and request.method == "POST":
-        form.save()
+        restaurant_entry = form.save(commit=False)
+        restaurant_entry.user = request.user
+        restaurant_entry.save()
         return redirect('main:show_main')
+    
     context = {'form': form}
     return render(request, "create_new_resto.html", context)
 
