@@ -27,7 +27,11 @@ SECRET_KEY = "django-insecure-v68i*!i(z+wq!8u^#05hi(og=2it(q@3nl3^d#3g@8n3mo%!vu
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours",
+]
 
 
 # Application definition
@@ -39,7 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'main',
+    "main",
+    "search",
 ]
 
 MIDDLEWARE = [
@@ -56,9 +61,9 @@ ROOT_URLCONF = "a_thousand_flavours.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], 
-        'APP_DIRS': True,
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -125,6 +130,9 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id", "https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id"]
-
-
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
+]
