@@ -15,7 +15,7 @@ from django.urls import reverse
 
 @login_required(login_url='/login')
 def show_main(request):
-    resto_entries = Restaurants.objects.filter(user=request.user)
+    resto_entries = Restaurants.objects.all()
 
     context = {
         'name': request.user.username,
