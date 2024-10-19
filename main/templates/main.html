@@ -13,13 +13,17 @@
     <th>Island</th>
     <th>Cuisine</th>
     <th>Description</th>
+    <th>Description</th>
+    <th>Description</th>
   </tr>
   {% for restaurant in resto_entries %}
   <tr>
-    <td>{{ restaurant.Name }}</td>
-    <td>{{ restaurant.Island }}</td>
-    <td>{{ restaurant.Cuisine }}</td>
-    <td>{{ restaurant.Description }}</td>
+    <td>{{ restaurant.name }}</td>
+    <td>{{ restaurant.island }}</td>
+    <td>{{ restaurant.cuisine }}</td>
+    <td>{{ restaurant.description }}</td>
+    <td>{{ restaurant.contact }}</td>
+    <td>{{ restaurant.gmaps }}</td>
     <td>
       <a href="{% url 'main:edit_restaurant' restaurant.pk %}">
           <button>
