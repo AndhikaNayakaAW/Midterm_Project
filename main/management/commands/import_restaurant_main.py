@@ -1,6 +1,6 @@
 import csv
 from django.core.management.base import BaseCommand
-from favorites.models import Restaurant  # Assure-toi que tu utilises le bon modèle
+from main.models import Restaurant  # Assure-toi que tu utilises le bon modèle
 
 
 class Command(BaseCommand):
