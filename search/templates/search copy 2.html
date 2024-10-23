@@ -1,10 +1,11 @@
 <form method="GET" action="{% url 'search_restaurants' %}" class="search-form">
     <div class="form-group">
-        <label for="id_query">Search for a restaurant:</label>
+        <label for="id_query"><h2>Search for a restaurant</h2></label>
         {{ form.query.errors }}  <!-- Displays validation errors for the search field -->
         {{ form.query }}  <!-- Renders the search field with error handling -->
-    </div>
+    
     <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 </form>
 
 {% if query %}
