@@ -27,7 +27,11 @@ SECRET_KEY = "django-insecure-v68i*!i(z+wq!8u^#05hi(og=2it(q@3nl3^d#3g@8n3mo%!vu
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours",
+]
 
 
 # Application definition
@@ -39,7 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'main',
+    "main",
+    "search",
+    "favorites",
+    "wishlist",
 ]
 
 MIDDLEWARE = [
@@ -56,9 +63,9 @@ ROOT_URLCONF = "a_thousand_flavours.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], 
-        'APP_DIRS': True,
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -118,13 +125,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static' # refers to /static root project in development mode
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id", "https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id"]
-
-
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
+]

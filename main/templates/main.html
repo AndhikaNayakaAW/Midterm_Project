@@ -1,50 +1,37 @@
 {% extends 'base.html' %} 
 {% block content %}
+{% include 'navbar.html' %}
 <h1>Restaurant List</h1>
 
 {% if not resto_entries %}
 <p>There are no restaurants in the database.</p>
 
 {% else %}
-<table>
+<table class="table-auto" >
+  <thead>
   <tr>
     <th>Name</th>
     <th>Island</th>
     <th>Cuisine</th>
-    <th>Description</th>
+    <th>Contact</th>
+    <th>Location</th>
   </tr>
+  </thead>
+  <tbody>
   {% for restaurant in resto_entries %}
   <tr>
-    <td>{{ restaurant.Name }}</td>
-    <td>{{ restaurant.Island }}</td>
-    <td>{{ restaurant.Cuisine }}</td>
-    <td>{{ restaurant.Description }}</td>
-    <td>
-      <a href="{% url 'main:edit_restaurant' restaurant.pk %}">
-          <button>
-              Edit
-          </button>
-      </a>
-  </td>
-  <td>
-      <a href="{% url 'main:delete_restaurant' restaurant.pk %}">
-          <button>
-              Delete
-          </button>
-      </a>
-  </td>
+    <td>{{ restaurant.name }}</td>
+    <td>{{ restaurant.island }}</td>
+    <td>{{ restaurant.cuisine }}</td>
+    <td>{{ restaurant.contacts }}</td>
+    <td> <a href="{{ restaurant.gmaps }}"> Location </a> </td>
   </tr>
   {% endfor %}
+</tbody>
 </table>
 {% endif %}
 
 <br />
 
-<a href="{% url 'main:create_restaurant_entry' %}">
-  <button>Add New Restaurant</button>
-</a>
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
 <h5>Last login session: {{ last_login }}</h5>
 {% endblock %}
