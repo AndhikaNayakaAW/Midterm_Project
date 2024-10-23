@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours",
+    "adyo-arkan-athousandflavors.pbp.cs.ui.ac.id"
 ]
 
 
