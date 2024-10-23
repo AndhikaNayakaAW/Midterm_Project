@@ -1,6 +1,6 @@
 import csv
 from django.core.management.base import BaseCommand
-from main.models import Restaurant  # Assure-toi que tu utilises le bon modèle
+from main.models import Restaurants
 
 
 class Command(BaseCommand):
@@ -15,12 +15,13 @@ class Command(BaseCommand):
         with open(csv_file, newline="") as file:
             reader = csv.DictReader(file)
             for row in reader:
-                restaurant = Restaurant(
+                restaurant = Restaurants(
                     name=row["name"],
                     island=row["island"],
                     cuisine=row["cuisine"],
                     contacts=row["contacts"],
                     gmaps=row["gmaps"],
+                    image=row["image", ""],
                 )
                 restaurant.save()
                 self.stdout.write(

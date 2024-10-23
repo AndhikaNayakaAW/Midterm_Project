@@ -4,22 +4,28 @@ from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from main.models import Restaurant as Restaurants
+from main.models import Restaurants
 from main.forms import RestoEntryForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 import datetime
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 
 @login_required(login_url="/login")
 def show_main(request):
-    resto_entries = Restaurants.objects.all()
+    resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
+
+    # Implement pagination
+    paginator = Paginator(resto_entries, 6)  # Show 6 restaurants per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         "name": request.user.username,
-        "resto_entries": resto_entries,
+        "resto_entries": page_obj,  # Pass the paginated entries to the template
         "last_login": request.COOKIES.get("last_login", "Not set"),
     }
 
