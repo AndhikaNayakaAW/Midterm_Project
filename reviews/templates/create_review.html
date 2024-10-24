@@ -1,0 +1,6 @@
+<h2>Review {{ restaurant.name }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>

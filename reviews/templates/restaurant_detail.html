@@ -1,0 +1,17 @@
+<h2>{{ restaurant.name }}</h2>
+<p>Location: {{ restaurant.location }}</p>
+
+<h3>Reviews</h3>
+<ul>
+    {% for review in reviews %}
+    <li>
+        <strong>{{ review.user.username }}:</strong> Rated {{ review.rating }}/5
+        <p>{{ review.description }}</p>
+        <p><em>{{ review.created_at }}</em></p>
+    </li>
+    {% empty %}
+    <li>No reviews yet. Be the first to review!</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'create_review' restaurant.id %}">Leave a Review</a>

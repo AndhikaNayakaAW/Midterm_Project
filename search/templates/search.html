@@ -1,38 +1,67 @@
+{% extends 'base.html' %} 
+{% block content %}
 <form method="GET" action="{% url 'search_restaurants' %}" class="search-form">
     <div class="form-group">
-        <label for="id_query">Search for a restaurant:</label>
+        <label for="id_query"><h2>Search for a restaurant</h2></label>
         {{ form.query.errors }}  <!-- Displays validation errors for the search field -->
         {{ form.query }}  <!-- Renders the search field with error handling -->
-    </div>
+    
     <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 </form>
 
 {% if query %}
-    <h2>Results for "{{ query|escape }}":</h2>  <!-- Use escape to ensure safe output -->
-    <ul class="restaurant-list">
-        {% if results %}
-            {% for restaurant in results %}
-                <li class="restaurant-item">
-                    <strong>{{ restaurant.name }}</strong><br>
-                    <span class="restaurant-island">{{ restaurant.island }}</span><br>
-                    <em class="restaurant-cuisine">{{ restaurant.cuisine }}</em><br>
-                    
-                    {% if restaurant.contacts %}
-                        <span class="restaurant-contacts">Contact: <strong>{{ restaurant.contacts }}</strong></span><br>
-                    {% else %}
-                        <span class="restaurant-contacts">Contact: <em>Not available</em></span><br>
-                    {% endif %}
-                    
-                    {% if restaurant.gmaps %}
-                        <a href="{{ restaurant.gmaps }}" target="_blank" class="restaurant-gmaps">View on Google Maps</a>
-                    {% else %}
-                        <span class="restaurant-gmaps">Location: <em>Not available</em></span>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No restaurants found matching your search.</li>
-        {% endif %}
-    </ul>
+    <div class="restaurant-list">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                Results for "{{ query|escape }}"
+                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Find the restaurant you are searching for, add it to your wishlist of favorite list.</p>
+            </caption>
+            {% if results %}
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Restaurant name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Island
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Cuisine
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Contact
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Location
+                        </th>
+                    </tr>
+                </thead>
+                {% for restaurant in results %}
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ restaurant.name }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ restaurant.island }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ restaurant.cuisine }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ restaurant.gmaps }}" target="_blue" class="restaurant-gmaps">View on Google Maps</a>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ restaurant.contact }}
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            {% else %}
+                <li>No restaurants found matching your search.</li>
+            {% endif %}
+        </table>
+    </div>
 {% endif %}
-
+{% endblock %}

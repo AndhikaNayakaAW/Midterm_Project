@@ -1,48 +1,65 @@
 {% extends 'base.html' %} 
+{% load static %}
 {% block content %}
 {% include 'navbar.html' %}
-<h1>Restaurant List</h1>
+
+<section class="bg-center bg-no-repeat bg-[url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg')] bg-amber-200 bg-blend-multiply">
+  <div class="px-4 mx-auto max-w-screen-xl text-center py-12 lg:py-24">
+    <div class="flex justify-center">
+      <img src="{% static 'images/TF_logo.png' %}" />
+    </div>
+      <div>
+        <form class="max-w-md mx-auto">   
+          <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
+            </div>
+            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-amber-300 rounded-full bg-white focus:ring-blue-500 focus:border-amber-500 dark:bg-amber-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
+            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+          </div>
+        </form>
+      </div>
+  </div>
+</section>
 
 {% if not resto_entries %}
 <p>There are no restaurants in the database.</p>
-
 {% else %}
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Island</th>
-    <th>Cuisine</th>
-    <th>Description</th>
-  </tr>
-  {% for restaurant in resto_entries %}
-  <tr>
-    <td>{{ restaurant.Name }}</td>
-    <td>{{ restaurant.Island }}</td>
-    <td>{{ restaurant.Cuisine }}</td>
-    <td>{{ restaurant.Description }}</td>
-    <td>
-      <a href="{% url 'main:edit_restaurant' restaurant.pk %}">
-          <button>
-              Edit
-          </button>
-      </a>
-  </td>
-  <td>
-      <a href="{% url 'main:delete_restaurant' restaurant.pk %}">
-          <button>
-              Delete
-          </button>
-      </a>
-  </td>
-  </tr>
-  {% endfor %}
-</table>
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full">
+        {% for restaurant in resto_entries %}
+            {% include 'card_resto.html' with restaurant=restaurant %}
+        {% endfor %}
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="flex justify-between mt-4">
+        <!-- Previous Button -->
+        {% if resto_entries.has_previous %}
+        <a href="?page={{ resto_entries.previous_page_number }}" class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Previous
+        </a>
+        {% else %}
+        <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
+            Previous
+        </span>
+        {% endif %}
+
+        {% if resto_entries.has_next %}
+        <a href="?page={{ resto_entries.next_page_number }}" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Next
+        </a>
+        {% else %}
+        <span class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
+            Next
+        </span>
+        {% endif %}
+    </div>
 {% endif %}
 
 <br />
 
-<a href="{% url 'main:create_restaurant_entry' %}">
-  <button>Add New Restaurant</button>
-</a>
 <h5>Last login session: {{ last_login }}</h5>
 {% endblock %}

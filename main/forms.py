@@ -4,4 +4,4 @@ from main.models import Restaurants
 class RestoEntryForm(ModelForm):
     class Meta:
         model = Restaurants
-        fields = ["Name", "Island", "Cuisine","Description"]
+        fields = ["name", "island", "cuisine","contacts","gmaps","image"]
