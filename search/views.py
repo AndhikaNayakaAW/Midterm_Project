@@ -1,39 +1,25 @@
 from django.shortcuts import render
-from .models import Restaurant
+from .models import Restaurants
 from .forms import RestaurantSearchEntry
 
 
 def search_restaurants(request):
-    query = request.GET.get("query")
-    if query:
-        results = (
-            Restaurant.objects.filter(name__icontains=query)
-            | Restaurant.objects.filter(island__icontains=query)
-            | Restaurant.objects.filter(cuisine__icontains=query)
-        )
-    else:
-        results = Restaurant.objects.none()  # Empty QuerySet if no query
-
-    context = {
-        "form": RestaurantSearchEntry(),
-        "query": query,
-        "results": results,
-    }
-    return render(request, "search.html", context)
-
-
-def search_restaurants_v2(request):
-    form = RestaurantSearchEntry()
+    query = None
     results = []
-    query = ""
 
-    if query in request.GET:
-        query = request.GET["query"]
-        results = (
-            Restaurant.objects.filter(name__icontains=query)
-            | Restaurant.objects.filter(island__icontains=query)
-            | Restaurant.objects.filter(cuisine_type__icontains=query)
-        )
-    return render(
-        request, "search.html", {"form": form, "results": results, "query": query}
-    )
+    if request.method == "GET":
+        form = RestaurantSearchEntry(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data["query"]
+            results = (
+                Restaurants.objects.filter(name__icontains=query)
+                | Restaurants.objects.filter(island__icontains=query)
+                | Restaurants.objects.filter(cuisine__icontains=query)
+            )
+
+    else:
+        form = RestaurantSearchEntry()
+
+    context = {"form": form, "query": query, "results": results}
+
+    return render(request, "search.html", context)
