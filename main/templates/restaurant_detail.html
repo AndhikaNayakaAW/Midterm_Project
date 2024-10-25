@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mx-auto py-12">
+    <h1 class="text-3xl font-bold">{{ restaurant.name }}</h1>
+    <p class="mt-2"><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
+    <p class="mt-2"><strong>Island:</strong> {{ restaurant.island }}</p>
+    <p class="mt-2"><strong>Contact:</strong> {{ restaurant.contacts }}</p>
+    <a href="{{ restaurant.gmaps }}" class="text-blue-500 mt-4 block">View on Google Maps</a>
+</div>
+{% endblock %}

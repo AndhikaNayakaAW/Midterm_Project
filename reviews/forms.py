@@ -9,3 +9,4 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.NumberInput(attrs={'min': 1, 'max': 5}),
             'description': forms.Textarea(attrs={'rows': 3}),
         }
+

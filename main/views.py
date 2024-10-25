@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from main.models import Restaurants
+from main.models import Restaurants, Quotes
 from main.forms import RestoEntryForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
@@ -12,6 +12,10 @@ from django.contrib.auth import authenticate, login, logout
 import datetime
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from main.forms import ContactUsForm
+from main.models import Contact
 
 
 @login_required(login_url="/login")
@@ -30,6 +34,19 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
+
+@login_required(login_url="/login")
+def pagination_json(request):
+    resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
+
+    # Implement pagination
+    paginator = Paginator(resto_entries, 6)  # Show 6 restaurants per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return HttpResponse(
+        serializers.serialize("json", page_obj), content_type="application/json"
+    )
 
 
 def create_restaurant_entry(request):
@@ -124,3 +141,33 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse("main:login"))
     response.delete_cookie("last_login")
     return response
+
+def restaurant_details(request, id):
+    restaurant = get_object_or_404(Restaurants, id=id)
+    context = {
+        'restaurant': restaurant
+    }
+    return render(request, 'restaurant_detail.html', context)
+
+@csrf_exempt
+def submit_quote(request):
+    if request.method == "POST":
+        quote_content = request.POST.get('content')
+        new_quote = Quotes.objects.create(content=quote_content)
+        quotes = list(Quotes.objects.all().order_by('-created_at').values('content'))
+        return JsonResponse({'quotes': quotes}, status=200)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def show_contact(request):
+    return render(request, "contact_us.html")
+
+def contact_request(request):
+    form = ContactUsForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+    return render(request, "contact_us.html", context)
