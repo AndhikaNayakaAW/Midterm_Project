@@ -1,11 +1,10 @@
-<footer class="bg-gray-800 text-white py-6 mt-12">
-    <div class="container mx-auto text-center">
-      <form id="quote-form" class="mb-4">
-        <label for="quote-input" class="block text-sm font-medium mb-2">Write a quote:</label>
-        <textarea id="quote-input" class="p-2 border border-gray-300 rounded" placeholder="Enter your quote..." required></textarea>
-        <button type="submit" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all">
-          Submit
-        </button>
+<footer class="bg-[#000000] text-white py-6 mt-12">
+  <div class="container mx-auto text-center">
+      <form id="quote-form" class="flex flex-col items-center mb-4 space-y-4">
+          <label for="quote-input" class="block text-sm font-medium">Say Something Nice to See Something Nice:</label>
+          <textarea id="quote-input" class="p-2 border border-gray-300 rounded text-black" placeholder="Enter your quote..." required></textarea>
+          <button type="submit" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 transition-all">Submit</button>
+          <a href="{% url 'main:show_contact' %}" class="text-[#a06527] py-2 px-4 rounded">Contact Us</a>
       </form>
-    </div>
-  </footer>
+  </div>
+</footer>
