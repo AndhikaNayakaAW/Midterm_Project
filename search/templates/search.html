@@ -1,3 +1,9 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<img src="https://static.thatsup.co/content/img/article/artwork/guide-to-the-best-seafood-restaurants-in-london.jpg?1689085741" alt="Restaurant" class="img-fluid">
 <form method="GET" action="{% url 'search_restaurants' %}" class="search-form">
     <div class="form-group">
         <label for="id_query">Search for a restaurant:</label>
@@ -36,3 +42,5 @@
     </ul>
 {% endif %}
 
+{% include 'footer.html' %}
+{% endblock %}
