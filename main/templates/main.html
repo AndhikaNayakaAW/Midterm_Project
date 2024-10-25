@@ -6,7 +6,7 @@
 <section class="bg-center bg-no-repeat bg-[url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg')] bg-amber-200 bg-blend-multiply">
   <div class="px-4 mx-auto max-w-screen-xl text-center py-12 lg:py-24">
     <div class="flex justify-center">
-      <img src="{% static 'images/TF_logo.png' %}" />
+      <img src="{% static 'images/TF_logo.png' %}" class="h-[300px]" />
     </div>
       <div>
         <form method="get" action="{% url 'search_restaurants' %}" class="max-w-md mx-auto">   
@@ -17,6 +17,7 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
               </svg>
             </div>
+            <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-amber-300 rounded-full bg-white focus:ring-blue-500 focus:border-amber-500 dark:bg-amber-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for Restaurants..." value="{{ query }}" required />
             <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-amber-300 rounded-full bg-white focus:ring-blue-500 focus:border-amber-500 dark:bg-amber-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for Restaurants..." value="{{ query }}" required />
             <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
           </div>
@@ -29,38 +30,180 @@
 {% if not resto_entries %}
 <p>There are no restaurants in the database.</p>
 {% else %}
-    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full">
+    <div id="resto_entry" class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-3/4 mx-auto">
         {% for restaurant in resto_entries %}
             {% include 'card_resto.html' with restaurant=restaurant %}
         {% endfor %}
     </div>
 
-    <!-- Pagination controls -->
-    <div class="flex justify-between mt-4">
-        <!-- Previous Button -->
-        {% if resto_entries.has_previous %}
-        <a href="?page={{ resto_entries.previous_page_number }}" class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            Previous
-        </a>
-        {% else %}
-        <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
-            Previous
-        </span>
-        {% endif %}
 
-        {% if resto_entries.has_next %}
-        <a href="?page={{ resto_entries.next_page_number }}" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            Next
-        </a>
-        {% else %}
-        <span class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
-            Next
-        </span>
-        {% endif %}
-    </div>
+    <div class="flex justify-end mt-4 space-x-2">
+      {% if resto_entries.has_previous %}
+      <a id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          Previous
+      </a>
+      {% else %}
+      <span id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
+          Previous
+      </span>
+      {% endif %}
+  
+      {% if resto_entries.has_next %}
+      <a id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          Next
+      </a>
+      {% else %}
+      <span id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
+          Next
+      </span>
+      {% endif %}
+  </div>
 {% endif %}
 
 <br />
 
-<h5>Last login session: {{ last_login }}</h5>
+<script>
+function getCurrentPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('page')) || 1; // Default to page 1 if not present
+}
+function updateUrl(page) {
+    const url = new URL(window.location);
+    url.searchParams.set('page', page);
+    window.history.pushState({}, '', url);
+}
+async function getResto(){
+      const page = getCurrentPage()
+      return fetch(`{% url 'main:pagination_json' %}?page=${page}`).then((res) => res.json())
+}
+async function displayRestos(){
+  const restoEntries = await getResto();
+  console.log(restoEntries);
+  let htmlString = "";
+  let classNameString = "";
+  let previousClassNameStringHasNext = "flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+  let previousClassNameStringNoNext = "flex items-center justify-center px-4 h-10 text-base font-medium text-gray-300 bg-white border border-gray-300 rounded-lg cursor-not-allowed";
+
+  if (restoEntries.length === 0) {
+    htmlString = "error, no restos"
+  }
+  else {
+    classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-3/4 mx-auto";
+    restoEntries.forEach(resto => {
+      htmlString += `
+        <div class="relative break-inside-avoid">
+            <a href="/restaurant/${ resto.pk }" class="block">
+                <div class="relative top-5 bg-amber-100 shadow-md rounded-lg mb-6 break-inside-avoid flex flex-col border-2 border-amber-300">
+                    <div class="bg-amber-200 text-gray-800 p-4 rounded-t-lg border-b-2 border-amber-300">
+                        <h3 class="font-bold text-xl mb-2">${ resto.fields.name }</h3>
+                        <p class="text-gray-600">${ resto.fields.island }</p>
+                        <p class="text-gray-600">${ resto.fields.cuisine }</p>
+                        <p class="text-gray-600">${ resto.fields.contacts }</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+      `
+    });
+  }
+
+  document.getElementById("resto_entry").className = classNameString;
+  document.getElementById("resto_entry").innerHTML = htmlString;
+  
+  if (getCurrentPage() > 1) {
+    document.getElementById("previous").className = previousClassNameStringHasNext;
+  } else {
+    document.getElementById("previous").className = previousClassNameStringNoNext;
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const nextButton = document.getElementById('next');
+    const previousButton = document.getElementById('previous');
+
+    if (nextButton) {
+        nextButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const currentPage = getCurrentPage();
+            const nextPage = currentPage + 1;
+            updateUrl(nextPage);
+            displayRestos();
+        });
+    }
+
+    if (previousButton) {
+        previousButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const currentPage = getCurrentPage();
+            const previousPage = currentPage - 1;
+            if (previousPage > 0) { 
+                updateUrl(previousPage);
+            }
+            displayRestos();
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('quote-form');
+  const input = document.getElementById('quote-input');
+  const quotesDisplay = document.getElementById('quotes-display');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const quoteContent = input.value.trim();
+
+    if (quoteContent) {
+      fetch("{% url 'main:submit_quote' %}", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: new URLSearchParams({
+          'content': quoteContent
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.quotes) {
+          input.value = '';
+          updateQuotesDisplay(data.quotes);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  });
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function updateQuotesDisplay(quotes) {
+  while (true) { 
+    for (const quote of quotes) {
+      const quoteElement = document.createElement('p');
+      quoteElement.textContent = quote.content;
+      quoteElement.className = 'opacity-0 transition-opacity duration-1000 ease-in-out';
+      quotesDisplay.appendChild(quoteElement);
+
+      await sleep(100); 
+      quoteElement.classList.remove('opacity-0');
+      quoteElement.classList.add('opacity-100');
+
+      await sleep(5000);
+
+      quoteElement.classList.remove('opacity-100');
+      quoteElement.classList.add('opacity-0');
+
+      await sleep(1000);
+
+      quotesDisplay.removeChild(quoteElement);
+    }
+  }
+}
+
+});
+</script>
+{% include 'footer.html' %}
 {% endblock %}

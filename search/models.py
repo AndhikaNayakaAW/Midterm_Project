@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 import uuid
 
 
@@ -13,3 +14,6 @@ class Restaurants(models.Model):
 
     def __str__(self):
         return self.name
+=======
+from main.models import Restaurants
+>>>>>>> 41ccd8aaa19f4472922b1bb8a47266564094e8ba
