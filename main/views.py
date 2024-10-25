@@ -16,9 +16,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from main.forms import ContactUsForm
 from main.models import Contact
+from django.contrib.auth.decorators import user_passes_test
+from user_role.views import admin_check
+from user_role.forms import CustomUserCreationForm
+from django.contrib.auth.models import Group
 
 
-@login_required(login_url="/login")
+
 def show_main(request):
     resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
 
@@ -48,7 +52,8 @@ def pagination_json(request):
         serializers.serialize("json", page_obj), content_type="application/json"
     )
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def create_restaurant_entry(request):
     form = RestoEntryForm(request.POST or None)
 
@@ -61,35 +66,40 @@ def create_restaurant_entry(request):
     context = {"form": form}
     return render(request, "create_new_resto.html", context)
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def show_xml(request):
     data = Restaurants.objects.all()
     return HttpResponse(
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def show_json(request):
     data = Restaurants.objects.all()
     return HttpResponse(
         serializers.serialize("json", data), content_type="application/json"
     )
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def show_xml_by_id(request, id):
     data = Restaurants.objects.filter(pk=id)
     return HttpResponse(
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def show_json_by_id(request, id):
     data = Restaurants.objects.filter(pk=id)
     return HttpResponse(
         serializers.serialize("json", data), content_type="application/json"
     )
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def edit_restaurant(request, id):
     item = Restaurants.objects.get(pk=id)
     form = RestoEntryForm(request.POST or None, instance=item)
@@ -99,7 +109,8 @@ def edit_restaurant(request, id):
     context = {"form": form}
     return render(request, "edit_resto.html", context)
 
-
+@login_required(login_url="/login")
+@user_passes_test(admin_check)
 def delete_restaurant(request, id):
     item = Restaurants.objects.get(pk=id)
     item.delete()
@@ -107,16 +118,20 @@ def delete_restaurant(request, id):
 
 
 def register(request):
-    form = UserCreationForm()
-
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Your account has been successfully created!")
-            return redirect("main:login")
-    context = {"form": form}
-    return render(request, "register.html", context)
+            user = form.save()
+
+            # Assign the user to the selected group
+            selected_group = form.cleaned_data.get('group')
+            group = Group.objects.get(name=selected_group)
+            user.groups.add(group)
+
+            return redirect('/login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'register.html', {'form': form})
 
 
 def login_user(request):
@@ -135,7 +150,7 @@ def login_user(request):
     context = {"form": form}
     return render(request, "login.html", context)
 
-
+@login_required(login_url="/login")
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse("main:login"))
@@ -149,6 +164,7 @@ def restaurant_details(request, id):
     }
     return render(request, 'restaurant_detail.html', context)
 
+@login_required(login_url="/login")
 @csrf_exempt
 def submit_quote(request):
     if request.method == "POST":

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "search",
     "favorites",
     "wishlist",
+    "user_role",
 ]
 
 MIDDLEWARE = [
