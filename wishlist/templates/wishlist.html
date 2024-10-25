@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+
+<link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+
+{% block content %}
+  {% include 'navbar.html' %}
+
+  <!-- Main -->
+  <div class="bg-[#1E1E1E] min-h-screen flex">
+      <div class="w-1/2 bg-[#1E1E1E] relative">
+          <img src="{% static 'images/wishlist.png' %}" alt="Left Side Image" class="object-cover w-full h-full">
+      </div>
+
+      <div class="w-1/2 bg-[#1E1E1E] pt-12 px-6 lg:px-8 relative">
+          <div class="absolute top-12 left-2 flex items-center">
+              <a href="{% url 'main:show_main' %}">
+                  <button class="text-[#B89120] hover:text-[#C4A85E]">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                      </svg>
+                  </button>
+              </a>
+          </div>
+
+          <!-- Title -->
+          <div class="text-center">
+              <h2 class="text-4xl text-[#ECE3C3]" style="font-family: 'Italiana', serif; font-weight: 400; letter-spacing: 0.1em; word-spacing: 0.2em;">Wishlist</h2>
+              <div class="mt-4 mx-auto w-full max-w-lg border-b-2" style="border-color: #2F2821;"></div>
+          </div>
+
+          <!-- Wishlist Items -->
+          <div class="max-w-7xl mx-auto mt-8">
+              <div class="grid grid-cols-1 gap-6 lg:grid-cols-1">
+                  {% for restaurant in wishlist %}
+                  <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex items-center p-4">
+                      {% include 'main/templates/card_resto.html' %}
+                  </div>
+                  {% empty %}
+                  <p class="text-center text-gray-400">Your wishlist is empty.</p>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
