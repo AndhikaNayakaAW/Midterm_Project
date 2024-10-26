@@ -1,6 +1,5 @@
 # In reviews/views.py
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Review
 from .forms import ReviewForm
@@ -17,7 +16,7 @@ def submit_review(request, restaurant_id):
             review.user = request.user  # Automatically assign the logged-in user
             review.restaurant = restaurant  # Automatically assign the restaurant
             review.save()
-            return redirect('restaurant_details', id=restaurant.id)  # Redirect to the restaurant detail page
+            return redirect('main:restaurant_details', id=restaurant.id)  # I added main: infornt of restaurant_details so that it can be redirected to the correct url
     else:
         form = ReviewForm()
 
