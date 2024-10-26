@@ -162,17 +162,7 @@ def logout_user(request):
 def restaurant_details(request, id):
     restaurant = get_object_or_404(Restaurants, id=id)
     reviews = Review.objects.filter(restaurant=restaurant)
-
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user  # Automatically assign the logged-in user
-            review.restaurant = restaurant  # Automatically assign the restaurant
-            review.save()
-            return redirect('restaurant_details', id=restaurant.id)  # Redirect to avoid resubmission
-    else:
-        form = ReviewForm()
+    form = ReviewForm()
 
     context = {
         'restaurant': restaurant,
@@ -180,6 +170,35 @@ def restaurant_details(request, id):
         'form': form,
     }
     return render(request, 'restaurant_detail.html', context)
+
+def create_restaurant_review(request, id):
+    restaurant = get_object_or_404(Restaurants, id=id)
+    past_review = Review.objects.filter(user=request.user, restaurant=restaurant)
+
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+        review = form.save(commit=False)
+        if len(past_review) == 0:
+            review.user = request.user  
+            review.restaurant = restaurant 
+            review.save()
+        else:
+            past_review = past_review.first()
+            past_review.description = review.description
+            past_review.rating = review.rating
+            past_review.save()
+
+        return redirect('main:restaurant_details', id=restaurant.id)  
+    
+    reviews = Review.objects.filter(restaurant=restaurant)
+        
+    context = {
+        'restaurant': restaurant,
+        'reviews': reviews,
+        'form': form,
+    }
+    return render(request, 'restaurant_detail.html', context)
+
 @login_required(login_url="/login")
 @csrf_exempt
 def submit_quote(request):

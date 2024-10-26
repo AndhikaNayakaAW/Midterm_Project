@@ -4,8 +4,9 @@ from main.views import (
     show_xml, show_json, show_xml_by_id, show_json_by_id, 
     register, login_user, logout_user, 
     edit_restaurant, delete_restaurant, 
-    pagination_json, restaurant_details,
-    submit_quote, show_contact, contact_request
+    pagination_json, 
+    submit_quote, show_contact, contact_request,
+    restaurant_details, create_restaurant_review
 )
 
 app_name = 'main'
@@ -23,8 +24,9 @@ urlpatterns = [
     path('edit-restaurant/<uuid:id>', edit_restaurant, name='edit_restaurant'),
     path('delete/<uuid:id>', delete_restaurant, name='delete_restaurant'),
     path('main-json/',pagination_json, name="pagination_json"),
-    path('restaurant/<str:id>/', restaurant_details, name='restaurant_details'),
     path('submit-quote/', submit_quote, name='submit_quote'),
     path('show_contact/', show_contact, name='show_contact'),
-    path('contact_request/', contact_request, name='contact_request')
+    path('contact_request/', contact_request, name='contact_request'),
+    path('restaurant/<str:id>/', restaurant_details, name='restaurant_details'),
+    path('restaurant/<str:id>/review/', create_restaurant_review, name='create_restaurant_review'),
 ]
