@@ -42,6 +42,7 @@ def show_main(request):
     return render(request, "main.html", context)
 
 @login_required(login_url="/login")
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def pagination_json(request):
     resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
 
@@ -171,6 +172,7 @@ def restaurant_details(request, id):
     }
     return render(request, 'restaurant_detail.html', context)
 
+@login_required(login_url="/login")
 def create_restaurant_review(request, id):
     restaurant = get_object_or_404(Restaurants, id=id)
     past_review = Review.objects.filter(user=request.user, restaurant=restaurant)
@@ -210,9 +212,11 @@ def submit_quote(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+@login_required(login_url="/login")
 def show_contact(request):
     return render(request, "contact_us.html")
 
+@login_required(login_url="/login")
 def contact_request(request):
     form = ContactUsForm(request.POST or None)
 
