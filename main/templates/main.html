@@ -1,0 +1,354 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<section class="relative bg-center bg-no-repeat bg-[url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg')] bg-cover">
+  <div class="absolute inset-0 bg-[#9b782d] mix-blend-multiply"></div>
+
+  <div class="relative z-10 px-4 mx-auto max-w-screen-xl text-center py-12 lg:py-24">
+    <div class="flex justify-center">
+      <img src="{% static 'images/ATF_logo.png' %}" class="h-[300px]" />
+    </div>
+    <div id="quotes-display" class="text-xl mt-4 text-white italic font-serif"> </div>
+    <form method="get" action="{% url 'search_restaurants' %}" class="max-w-md mx-auto mt-6">
+      <label for="default-search" class="mb-2 text-sm font-medium text-amber-900 sr-only dark:text-white">Search</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <svg class="w-4 h-4 text-amber-500 dark:text-amber-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
+        </div>
+        <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-amber-900 border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-[#ece1B4] dark:border-amber-600 dark:placeholder-amber-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for Restaurants..." value="{{ query }}" required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#ece1B4] hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-[#ece1B4] dark:focus:ring-amber-800">Search</button>
+      </div>
+    </form>
+
+
+  </div>
+</section>
+
+
+
+<br />
+
+<div class="flex items-center justify-center">
+  <div class="block w-full max-w-md h-10 p-5 bg-[#1c1711] border-2 border-[#ece1B4] rounded-full shadow-lg text-center">
+      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4">
+          G&nbsp;A&nbsp;L&nbsp;L&nbsp;E&nbsp;R&nbsp;Y
+      </h5>
+  </div>
+</div>
+
+<br />
+<br />
+
+{% if not resto_entries %}
+<p>There are no restaurants in the database.</p>
+{% else %}
+  <div id="resto_entry" class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-3/4 mx-auto">
+        {% for restaurant in resto_entries %}
+            {% include 'card_resto.html' with restaurant=restaurant %}
+        {% endfor %}
+    </div>
+
+
+    <div class="flex justify-center mt-4 space-x-2">
+      {% if resto_entries.has_previous %}
+      <a id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white">
+          Previous
+      </a>
+      {% else %}
+      <span id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed">
+          Previous
+      </span>
+      {% endif %}
+  
+      {% if resto_entries.has_next %}
+      <a id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white">
+          Next
+      </a>
+      {% else %}
+      <span id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed">
+          Next
+      </span>
+      {% endif %}
+  </div>
+{% endif %}
+
+<br />
+
+<a href="search/?query=seafood">
+ <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="w-[1000px] mx-auto" />
+</a>
+
+<!--
+<div id="controls-carousel" class="relative w-3/4" data-carousel="static">
+  <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+       
+      <div class=" duration-700 ease-in-out" data-carousel-item>
+          <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      
+      <div class=" duration-700 ease-in-out" data-carousel-item="active">
+          <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      
+      <div class=" duration-700 ease-in-out" data-carousel-item>
+          <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      
+      <div class=" duration-700 ease-in-out" data-carousel-item>
+          <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      
+      <div class=" duration-700 ease-in-out" data-carousel-item>
+          <img src="{% static 'images/craving_seafood_advertisement.png' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+  </div>
+  
+  <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+          <span class="sr-only">Previous</span>
+      </span>
+  </button>
+  <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <span class="sr-only">Next</span>
+      </span>
+  </button>
+</div>
+-->
+
+<br />
+<div class="flex items-center justify-center">
+  <div class="block w-full max-w-md h-10 p-5 bg-[#1c1711] border-2 border-[#ece1B4] rounded-full shadow-lg text-center">
+      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4">
+          C&nbsp;A&nbsp;T&nbsp;E&nbsp;G&nbsp;O&nbsp;R&nbsp;I&nbsp;E&nbsp;S
+      </h5>
+  </div>
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-8 mx-auto max-w-screen-lg">
+  <figure class="relative">
+    <a href="search/?query=seafood">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/736x/55/69/92/55699222d5461ae11a4524628a778a32.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>Seafood</p>
+    </figcaption>
+  </figure>
+  <figure class="relative">
+    <a href="search/?query=noodles">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/50/59/ce/5059ce70b7cbd1e4ff3aec5992e87b55.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>Noodles</p>
+    </figcaption>
+  </figure>
+  <figure class="relative">
+    <a href="search/?query=Coffee & Snacks">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/08/5f/43/085f433918cd48fde92532c5e7bf7a5e.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>Coffee and Snacks</p>
+    </figcaption>
+  </figure>
+  <figure class="relative">
+    <a href="search/?query=International">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/c8/10/e8/c810e86d7ab596dc2b0f06c5f7cdd194.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>International</p>
+    </figcaption>
+  </figure>
+  <figure class="relative">
+    <a href="search/?query=Indonesian">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/736x/fe/cf/39/fecf3979d5db81044338ceaeced2fc02.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>Indonesian</p>
+    </figcaption>
+  </figure>
+  <figure class="relative">
+    <a href="search/?query=Local">
+        <div class="overflow-hidden rounded-lg h-35">
+            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/65/85/6d/65856d1a3fd82886a666061ce8489fe4.jpg" alt="image description">
+        </div>
+    </a>
+    <figcaption class="absolute px-4 text-lg text-white bottom-6">
+        <p>Local Dishes</p>
+    </figcaption>
+  </figure>
+</div>
+
+<script>
+function getCurrentPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('page')) || 1; // Default to page 1 if not present
+}
+function updateUrl(page) {
+    const url = new URL(window.location);
+    url.searchParams.set('page', page);
+    window.history.pushState({}, '', url);
+}
+async function getResto(){
+      const page = getCurrentPage()
+      return fetch(`{% url 'main:pagination_json' %}?page=${page}`).then((res) => res.json())
+}
+async function displayRestos(){
+  const restoEntries = await getResto();
+  console.log(restoEntries);
+  let htmlString = "";
+  let classNameString = "";
+  let previousClassNameStringHasPrevious = "flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white"
+  let previousClassNameStringNoPrevious = "flex items-center justify-center px-3 h-8 text-base font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed";
+  let nextClassNameStringHasNext = "flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white"
+  let nextClassNameStringNoNext = "flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed"
+
+  if (restoEntries.length === 0) {
+    htmlString = "error, no restos"
+  }
+  else {
+    classNameString =  "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-3/4 mx-auto"
+    restoEntries.forEach(resto => {
+      htmlString += `
+      <div class="relative break-inside-avoid w-45 h-45">
+        <figure class="relative max-w-sm">
+            <a href="{restaurant/${ resto.pk }">
+              <img class="h-auto transition-all duration-300 rounded-lg blur-sm hover:blur-none" src="https://pulau-tidung.com/wp-content/uploads/2017/08/ikan-bakar-ala-pulau-tidung-kepulauan-seribu.png" alt="image description">
+            </a>
+            <figcaption class="absolute px-4 text-xs text-white bottom-6">
+                <p>${ resto.fields.name }</p>
+            </figcaption>
+          </figure>
+    </div>
+      `
+      
+    });
+  }
+
+  document.getElementById("resto_entry").className = classNameString;
+  document.getElementById("resto_entry").innerHTML = htmlString;
+  
+  if (getCurrentPage() > 1) {
+    document.getElementById("previous").className = previousClassNameStringHasPrevious;
+  } else {
+    document.getElementById("previous").className = previousClassNameStringNoPrevious;
+  }
+
+  if (getCurrentPage() < 16) {
+    document.getElementById("next").className = nextClassNameStringHasNext;
+  } else {
+    document.getElementById("next").className = nextClassNameStringNoNext;
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const nextButton = document.getElementById('next');
+    const previousButton = document.getElementById('previous');
+
+    if (nextButton) {
+        nextButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const currentPage = getCurrentPage();
+            let nextpage = currentPage
+            if (getCurrentPage() < 16) {
+              nextPage = currentPage + 1;
+            }
+            updateUrl(nextPage);
+            displayRestos();
+        });
+    }
+
+    if (previousButton) {
+        previousButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const currentPage = getCurrentPage();
+            const previousPage = currentPage - 1;
+            if (previousPage > 0) { 
+                updateUrl(previousPage);
+            }
+            displayRestos();
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('quote-form');
+  const input = document.getElementById('quote-input');
+  const quotesDisplay = document.getElementById('quotes-display');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const quoteContent = input.value.trim();
+
+    if (quoteContent) {
+      fetch("{% url 'main:submit_quote' %}", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: new URLSearchParams({
+          'content': quoteContent
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.quotes) {
+          input.value = '';
+          updateQuotesDisplay(data.quotes);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  });
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function updateQuotesDisplay(quotes) {
+  while (true) { 
+    for (const quote of quotes) {
+      const quoteElement = document.createElement('p');
+      quoteElement.textContent = `"${quote.content}"`;
+      quoteElement.className = 'opacity-0 transition-opacity duration-1000 ease-in-out';
+      quotesDisplay.appendChild(quoteElement);
+
+      await sleep(100); 
+      quoteElement.classList.remove('opacity-0');
+      quoteElement.classList.add('opacity-100');
+
+      await sleep(5000);
+
+      quoteElement.classList.remove('opacity-100');
+      quoteElement.classList.add('opacity-0');
+
+      await sleep(1000);
+
+      quotesDisplay.removeChild(quoteElement);
+    }
+  }
+}
+
+});
+</script>
+{% include 'footer.html' %}
+{% endblock %}

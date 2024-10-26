@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+{% include 'navbar.html' %}
+
+  <!-- Main -->
+  <div class="min-h-screen flex">
+      <div class="w-1/2  relative">
+          <img src="{% static 'images/big_food.jpg' %}" alt="Left Side Image" class="object-cover w-full h-full">
+      </div>
+
+      <div class="w-1/2 pt-12 px-6 lg:px-8 relative">
+
+          <div class="text-center">
+              <h2 class="text-4xl text-[#ECE3C3]" style="font-family: 'Italiana', serif; font-weight: 400; letter-spacing: 0.1em; word-spacing: 0.2em;">Wishlist</h2>
+              <div class="mt-4 mx-auto w-full max-w-lg border-b-2" style="border-color: #2F2821;"></div>
+          </div>
+
+          <div class="max-w-7xl mx-auto mt-8">
+              <div class="grid grid-cols-1 gap-6 lg:grid-cols-1">
+                {% if wishlist_items %}
+                <ul>
+                    {% for item in wishlist_items %}
+                        <li>
+                            {{ item.restaurant.name }} - 
+                            <em>Added on {{ item.added_at }}</em>
+                            <!-- Optional: Add a remove option -->
+                            <form action="{% url 'remove_from_wishlist' item.restaurant.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Remove</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Your wishlist is empty.</p>
+            {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
