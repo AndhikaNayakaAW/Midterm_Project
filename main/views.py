@@ -171,6 +171,7 @@ def restaurant_details(request, id):
     }
     return render(request, 'restaurant_detail.html', context)
 
+@login_required
 def create_restaurant_review(request, id):
     restaurant = get_object_or_404(Restaurants, id=id)
     past_review = Review.objects.filter(user=request.user, restaurant=restaurant)

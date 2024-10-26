@@ -27,6 +27,8 @@ SECRET_KEY = "django-insecure-v68i*!i(z+wq!8u^#05hi(og=2it(q@3nl3^d#3g@8n3mo%!vu
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
+LOGIN_URL = '/login/'
+
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",

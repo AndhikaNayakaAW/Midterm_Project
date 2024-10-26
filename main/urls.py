@@ -6,8 +6,10 @@ from main.views import (
     edit_restaurant, delete_restaurant, 
     pagination_json, 
     submit_quote, show_contact, contact_request,
-    restaurant_details, create_restaurant_review
+    restaurant_details, create_restaurant_review,
 )
+from django.contrib.auth import views as auth_views
+
 
 app_name = 'main'
 
@@ -29,4 +31,5 @@ urlpatterns = [
     path('contact_request/', contact_request, name='contact_request'),
     path('restaurant/<str:id>/', restaurant_details, name='restaurant_details'),
     path('restaurant/<str:id>/review/', create_restaurant_review, name='create_restaurant_review'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
 ]

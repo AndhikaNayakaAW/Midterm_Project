@@ -8,7 +8,7 @@
 <div class="login">
   <h1>Login</h1>
 
-  <form method="POST" action="">
+  <form method="POST" action="{% url 'main:login' %}">
     {% csrf_token %}
     <table>
       {{ form.as_table }}
@@ -25,8 +25,9 @@
     <li>{{ message }}</li>
     {% endfor %}
   </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
+  {% endif %}
+
+  Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
 </div>
 
 {% endblock content %}
