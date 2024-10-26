@@ -1,11 +1,66 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
 <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
+
+  <aside id="default-sidebar" class="fixed top-0 right-0 z-40 w-96 h-screen transition-transform sm:translate-x-0" aria-label="Sidebar">
+    <img src="/static/images/ATF.png" class="w-64 fixed right-14 top-44"/>
+    <div class="h-full px-3 py-4 overflow-y-auto" style="background-color: #2C251E;">
+      <form method="POST" action="{% url 'main:login' %}" class="pt-96 pl-16 pr-16">
+        {% csrf_token %}
+        <div class="mb-4">
+          <input type="text" name="username" id="username" placeholder="Username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" required>
+        </div>
+        <div class="mb-4">
+          <input type="password" name="password" id="password" placeholder="Password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" required>
+        </div>
+        <div class="mb-4">
+          <button type="submit" class="w-full px-3 py-2 text-white bg-[#b88d20] rounded-md hover:bg-[#976A15] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">Login</button>
+        </div>
+        <div class="mb-4">
+          <p class="text-[#ECE1B4]">New here? <a href="{% url 'main:register' %}" class="text-[#ECE1B4] underline hover:text-[#FDFCE2]">Register</a></p>
+        </div>
+      </form>
+    </div>
+  </aside>
+
+
+
+
+{% load static %}
+<nav class="bg-[#1c1711] shadow-lg fixed top-0 left-0 z-40 w-screen h-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="{% url 'main:show_main' %}">
+          <img src="{% static 'images/ATF.png' %}" class="w-24 h-11 mb-1"/>
+        </a>
+          <div class="hidden md:flex items-center">
+                <a href="{% url 'main:show_main' %}" class="text-center text-[#a06527] py-2 px-4 rounded transition ">
+                    Explore
+                </a>
+                <a href="{% url 'main:login' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
+                    Login
+                </a>
+          </div>
+          <div class="md:hidden flex items-center">
+              <button class="mobile-menu-button">
+                  <svg class="w-6 h-6 text-[#a06527]" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M4 6h16M4 12h16M4 18h16"></path>
+                  </svg>
+              </button>
+          </div>
+      </div>
+  </div>
+</nav>
+
+
+
+
+
+<!-- <div class="login">
   <h1>Login</h1>
 
   <form method="POST" action="{% url 'main:login' %}">
@@ -28,6 +83,6 @@
   {% endif %}
 
   Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
-</div>
+</div> -->
 
 {% endblock content %}

@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
-  content: [],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '128': '32rem', // Custom width of 32rem (512px)
+      },
+    },
   },
+  variants: {},
   plugins: [],
 }
-
