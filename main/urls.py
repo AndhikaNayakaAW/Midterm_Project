@@ -6,8 +6,7 @@ from main.views import (
     edit_restaurant, delete_restaurant, 
     pagination_json, 
     submit_quote, show_contact, contact_request,
-    restaurant_details, create_restaurant_review,
-    restaurant_details, create_restaurant_review, unauthorized
+    restaurant_details, create_restaurant_review,unauthorized,
 )
 from django.contrib.auth import views as auth_views
 
