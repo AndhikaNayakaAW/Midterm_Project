@@ -55,7 +55,7 @@ def pagination_json(request):
     )
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def create_restaurant_entry(request):
     form = RestoEntryForm(request.POST or None)
 
@@ -69,7 +69,7 @@ def create_restaurant_entry(request):
     return render(request, "create_new_resto.html", context)
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def show_xml(request):
     data = Restaurants.objects.all()
     return HttpResponse(
@@ -77,7 +77,7 @@ def show_xml(request):
     )
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def show_json(request):
     data = Restaurants.objects.all()
     return HttpResponse(
@@ -85,7 +85,7 @@ def show_json(request):
     )
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def show_xml_by_id(request, id):
     data = Restaurants.objects.filter(pk=id)
     return HttpResponse(
@@ -93,7 +93,7 @@ def show_xml_by_id(request, id):
     )
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def show_json_by_id(request, id):
     data = Restaurants.objects.filter(pk=id)
     return HttpResponse(
@@ -101,7 +101,7 @@ def show_json_by_id(request, id):
     )
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def edit_restaurant(request, id):
     item = Restaurants.objects.get(pk=id)
     form = RestoEntryForm(request.POST or None, instance=item)
@@ -112,7 +112,7 @@ def edit_restaurant(request, id):
     return render(request, "edit_resto.html", context)
 
 @login_required(login_url="/login")
-@user_passes_test(admin_check)
+@user_passes_test(admin_check, login_url='/unauthorized/')
 def delete_restaurant(request, id):
     item = Restaurants.objects.get(pk=id)
     item.delete()
@@ -222,3 +222,6 @@ def contact_request(request):
 
     context = {'form': form}
     return render(request, "contact_us.html", context)
+
+def unauthorized(request):
+    return render(request, 'unauthorized.html')
