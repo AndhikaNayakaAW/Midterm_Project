@@ -1,0 +1,74 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %} 
+{% include 'navbar.html' %}
+
+<div class="bg-[#1c1711] static flex min-h-screen bg-cover bg-fixed bg-no-repeat font-[Italiana] text-[#f8f0d3]">
+  <div class="relative w-[45%]">
+    <img src="{% static 'images/big_food.jpg' %}" alt="Restaurant Image" class="h-full w-full object-cover" />
+  </div>
+
+  <div class="split right flex flex-col p-4 w-[55%] mx-auto items-center">
+    <div class="absolute top-12 left-2 flex items-center">
+    </div>
+
+    <div class="mt-[50px] flex justify-center w-[75%]">
+      <h1 class="text-center text-3xl font-bold">{{ restaurant.name }}</h1>
+    </div>
+
+    <div class="my-[20px] w-[75%]">
+      <div class="mx-auto h-[1px] w-full bg-[#2F2821]"></div>
+
+      <div class="mx-auto mt-[9%] w-full rounded-lg bg-[#2F2821] p-6 flex flex-col items-center space-y-4">
+        <p class="text-center text-amber-500 text-lg font-semibold">Categories</p>
+        
+        <div class="w-full flex justify-around text-center">
+          <p class="text-white">{{ restaurant.cuisine }}</p>
+          <p class="text-white">{{ restaurant.island }}</p>
+          <p class="text-white">{{ restaurant.contacts }}</p>
+        </div>
+      
+        <a href="{{ restaurant.gmaps }}" class="text-amber-500 block text-center mt-2">View on Google Maps</a>
+      </div>
+
+      <div class="mx-auto mt-8 h-[1px] w-full bg-[#2F2821]"></div>
+
+      <div class="mt-[30px]">
+        <h1 class="text-center text-3xl font-bold">Reviews</h1>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-center text-[#f8f0d3] mb-6">Review {{ restaurant.name }}</h2>
+      <div class="w-[75%] mx-auto rounded-lg bg-[#2F2821] p-6 flex flex-col items-center space-y-4">
+          <form method="POST" class="w-full flex flex-col items-center space-y-4">
+              {% csrf_token %}
+              <div class="w-full text-white space-y-4">
+                  {{ form.as_p }}
+                  {% if form.errors %}
+                      <div class="text-red-500">
+                          <strong>Please correct the errors below:</strong>
+                          <ul>
+                              {% for field in form %}
+                                  {% for error in field.errors %}
+                                      <li>{{ error }}</li>
+                                  {% endfor %}
+                              {% endfor %}
+                              {% for error in form.non_field_errors %}
+                                  <li>{{ error }}</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                  {% endif %}
+              </div>
+              <button type="submit" class="mt-4 w-full max-w-xs bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300">
+                  Submit Review
+              </button>
+          </form>
+      </div>
+      
+
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% include 'footer2.html' %}

@@ -1,0 +1,43 @@
+{% load static %}
+<nav class="bg-[#1c1711] shadow-lg fixed top-0 left-0 z-40 w-screen h-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="{% url 'main:show_main' %}"><img src="{% static 'images/ATF.png' %}" class="w-24 h-11 mb-1"/></a>
+          <div class="hidden md:flex items-center">
+              {% if user.is_authenticated %}
+                <a class="text-center text-[#a06527] py-2 px-4 rounded ">
+                    Favorites
+                </a>
+                <a href="{% url 'search:search_restaurants' %}" class=" text-center  text-[#a06527] py-2 px-4 rounded ">
+                    Explore
+                </a>
+                <a href="{% url 'wishlist:view_wishlist' %}" class="text-center  text-[#a06527] py-2 px-4 mr-4 rounded ">
+                    Wishlist
+                </a>
+                <span class="text-[#a06527] mr-4">Welcome, {{ user.username }}</span>
+                <a href="{% url 'main:logout' %}" class="text-center bg-[#B88D20] hover:bg-[#7F560A] text-amber-950 font-bold py-2 px-4 rounded transition duration-300">
+                    Logout
+                </a>
+              {% else %}
+                <a class="text-center text-[#a06527] py-2 px-4 rounded transition ">
+                    Explore
+                </a>
+                <a class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
+                    Login
+                </a>
+              {% endif %}
+              
+          </div>
+          <div class="md:hidden flex items-center">
+              <button class="mobile-menu-button">
+                  <svg class="w-6 h-6 text-[#a06527]" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M4 6h16M4 12h16M4 18h16"></path>
+                  </svg>
+              </button>
+          </div>
+      </div>
+  </div>
+</nav>
+<div class="pt-16">
+  
+</div>

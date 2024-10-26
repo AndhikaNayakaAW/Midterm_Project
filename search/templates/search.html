@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<section class="relative bg-center bg-no-repeat bg-cover bg-[url('{% static 'images/explore_page_image.png' %}')]">
+    <div class="absolute top-0 right-0 bottom-0 left-0 opacity-20 z-[1] pointer-events-none"></div>
+    <div class="relative z-10 px-4 mx-auto max-w-screen-xl text-center py-12 lg:py-24">
+        <h1 class="text-5xl font-bold" style="font-weight: 650;">
+            E&nbsp;X&nbsp;P&nbsp;L&nbsp;O&nbsp;R&nbsp;E&nbsp; &nbsp;
+            P&nbsp;U&nbsp;L&nbsp;A&nbsp;U&nbsp; &nbsp;
+            S&nbsp;E&nbsp;R&nbsp;I&nbsp;B&nbsp;U
+        </h1>
+             
+        <div id="quotes-display" class="text-xl mt-4 text-white italic font-serif"></div>
+        <form method="GET" action="{% url 'search_restaurants' %}" class="search-form max-w-md mx-auto mt-6">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-[#ECE3C3]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="#726A5F" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <div class="block w-full">
+                    <label for="id_query" class="sr-only">Search for a restaurant:</label>
+                    <input type="text" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-amber-700 dark:border-gray-600 dark:placeholder-[#726A5F] dark:text-[#726A5F] dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for Restaurants...">
+                </div>
+                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#B88D20] hover:bg-[#976A15] focus:ring-4 focus:outline-none focus:ring-[#B88D20] font-medium rounded-full text-sm px-4 py-2 dark:bg-[#B88D20] dark:hover:bg-[#976A15] dark:focus:ring-[#976A15]" style="font-weight: 600">Search</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+{% if query %}
+  <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Results for "{{ query|escape }}":</h2>
+  <ul class="restaurant-list space-y-6">
+    {% if results %}
+      {% for restaurant in results %}
+        <a href="{% url 'main:restaurant_details' restaurant.id %}" class="block w-3/4 mx-auto">
+          <li class="restaurant-item flex items-center custom-card-bg border border-[#3A332B] rounded-lg shadow-lg dark:bg-[#2F2821] dark:border-[#3A332B] p-5 transition-transform transform hover:scale-105">
+            <div class="w-1/3">
+              {% if restaurant.image_url %}
+                <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}" class="rounded-lg w-full h-auto object-cover">
+              {% else %}
+                <div class="bg-gray-300 rounded-lg w-full h-40 flex items-center justify-center text-black text-lg">
+                  No Image Available
+                </div>
+              {% endif %}
+            </div>
+            <div class="w-2/3 px-5">
+              <h3 class="text-xl font-bold tracking-tight text-[#ECE3C3] dark:text-[#ECE3C3] mb-2">{{ restaurant.name }}</h3>
+              <p class="mb-1 font-medium text-[#ECE3C3] dark:text-[#ECE3C3]">{{ restaurant.island }}</p>
+              <p class="mb-2 italic font-light text-[#ECE3C3] dark:text-[#ECE3C3]">{{ restaurant.cuisine }}</p>
+              <div class="text-sm font-light text-[#ECE3C3] dark:text-[#ECE3C3]">
+                {% if restaurant.contacts %}
+                  <p>Contact: <strong>{{ restaurant.contacts }}</strong></p>
+                {% else %}
+                  <p>Contact: <em>Not available</em></p>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        </a>
+      {% endfor %}
+    {% else %}
+      <h1 class="font-bold text-center text-gray-900 dark:text-white">No restaurants found matching your search.</h1>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+{% include 'footer2.html' %}
+{% endblock %}

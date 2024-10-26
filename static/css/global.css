@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+body {
+    background-color: #1C1711; /* Background color */
+    color: #F8F0D3;
+}
+
+div {
+    font-family: 'Italiana', serif;
+    letter-spacing: 0.12em;
+    font-weight: 650;
+    letter-spacing: 0.13em;
+}
+
+/* Titles */
+h1 {
+    color: #F8F0D3;
+    font-family: 'Italiana', serif;
+    font-size: 50px !important;
+    font-weight: 650;
+    letter-spacing: 0.13em;
+}
+
+/* Input Style */
+#login_input {
+    color: #1C1711 !important; /* Override global styles */
+    background-color: #B88D20 !important; /* Background color */
+    padding: 5px;
+    border-radius: 5px; /* Optional: add rounded corners */
+}
+
+input[type="text"], textarea {
+
+    color: #1C1711;
+    background-color: #DDDBAE;
+
+}
+
+/* Input Styles for Registration Form */
+#registration_form input[type="text"],
+#registration_form textarea {
+    color: #1C1711 !important; /* Font color */
+    background-color: #DDDBAE !important; /* Background color */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Input Styles for Registration Form */
+#login_form input[type="text"],
+#login_form textarea {
+    color: #1C1711 !important; /* Font color */
+    background-color: #DDDBAE !important; /* Background color */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.custom-card-bg {
+    background-color: #2F2821 !important;
+}
