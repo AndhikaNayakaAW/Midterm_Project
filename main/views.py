@@ -119,37 +119,40 @@ def delete_restaurant(request, id):
     item.delete()
     return HttpResponseRedirect(reverse("main:show_main"))
 
-
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-
-            # Assign the user to the selected group
-            selected_group = form.cleaned_data.get('group')
-            group = Group.objects.get(name=selected_group)
-            user.groups.add(group)
-
-            return redirect('/login')
+            form.save()
+            messages.success(request, 'You have successfully registered.')
+            return redirect('main:login')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
-
 
 def login_user(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
 
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            response = HttpResponseRedirect(reverse("main:show_main"))
-            response.set_cookie("last_login", str(datetime.datetime.now()))
-            return response
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                response = HttpResponseRedirect(reverse("main:show_main"))
+                response.set_cookie("last_login", str(datetime.datetime.now()))
+                return response
+            else:
+                messages.error(request, 'Username not found')
+        else:
+            messages.error(request, 'Invalid username or password.')
 
     else:
-        form = AuthenticationForm(request)
+        form = AuthenticationForm()
     context = {"form": form}
     return render(request, "login.html", context)
 
