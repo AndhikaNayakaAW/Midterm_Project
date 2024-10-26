@@ -1,32 +1,55 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
 <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login</h1>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+<div class="min-h-screen flex">
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
+  <!-- LEFT HALF -->
+  <div class="w-1/2  relative">
+      <img src="{% static 'images/ATF_background.png' %}" alt="Left Side Image" class="object-cover w-full h-full">
+  </div>
+
+  <!-- RIGHT HALF -->
+  <div class="w-1/2 pt-5 px-6 lg:px-8 relative bg-[#2C251E] flex justify-center">
+    <div class="login max-w-md mx-auto">
+
+      <!-- Logo image with bottom margin -->
+      <img src="{% static 'images/ATF.png' %}" class="w-4/5 mx-auto" style="margin-bottom: 25px;" />
+
+      <!-- Log In text with top margin -->
+      <h1 class="text-2xl font-semibold text-center" style="margin-top: 30px; margin-bottom: 25px;">LOG IN</h1>
+
+      <form method="POST" action="" id="login_form" class="space-y-6">
+        {% csrf_token %}
+        <div>
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: 600;">Username</label>
+          <input type="text" id="username" name="username" class="border border-gray-300 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#93897C] dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500" placeholder="Enter your username" required />
+        </div>
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style=" font-weight: 600; margin-top: -10px;">Password</label>
+          <input type="password" id="password" name="password" class="border border-gray-300 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#93897C] dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500" placeholder="Enter your password" required />
+        </div>
+        
+        <button type="submit" class="bg-[#B88D20] hover:bg-[#976A15] focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-lg px-5 py-2.5 mx-auto text-center dark:bg-[#B88D20] dark:hover:bg-[#976A15] dark:focus:ring-yellow-800" style="width: 150px; height: 65px; margin-top: 40px; margin-left: 35%; font-weight: 600;">LOGIN</button>
+
+        {% if messages %}
+        <ul class="text-red-600 dark:text-red-400">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+      </form>
+
+      <p class="mt-4 text-sm text-gray-600 dark:text-[#FDFCE2]" style="margin-top: 125px; margin-left: 15%;">Don't have an account yet?
+        <a href="{% url 'main:register' %}" class="text-[#B88D20] hover:underline dark:text-[#AB791B]">Register Now</a>
+      </p>
+    </div>
+  </div>
 </div>
-
 {% endblock content %}
