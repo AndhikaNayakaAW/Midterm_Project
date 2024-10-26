@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
+from .views import submit_review
 
 urlpatterns = [
-    path('restaurant/<int:restaurant_id>/', views.restaurant_detail, name='restaurant_detail'),
-    path('restaurant/<int:restaurant_id>/review/', views.create_review, name='create_review'),
+    path('submit-review/<str:restaurant_id>/', submit_review, name='submit_review'),
 ]

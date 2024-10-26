@@ -1,28 +1,16 @@
 {% extends 'base.html' %}
-
 {% load static %} 
-
-<link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
-
 {% block content %}
-  {% include 'navbar.html' %}
+{% include 'navbar.html' %}
 
   <!-- Main -->
-  <div class="bg-[#1E1E1E] min-h-screen flex">
-      <div class="w-1/2 bg-[#1E1E1E] relative">
+  <div class="min-h-screen flex">
+      <div class="w-1/2  relative">
           <img src="{% static 'images/wishlist.png' %}" alt="Left Side Image" class="object-cover w-full h-full">
       </div>
 
-      <div class="w-1/2 bg-[#1E1E1E] pt-12 px-6 lg:px-8 relative">
-          <div class="absolute top-12 left-2 flex items-center">
-              <a href="{% url 'main:show_main' %}">
-                  <button class="text-[#B89120] hover:text-[#C4A85E]">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                      </svg>
-                  </button>
-              </a>
-          </div>
+      <div class="w-1/2 pt-12 px-6 lg:px-8 relative">
+
 
           <!-- Title -->
           <div class="text-center">
@@ -33,13 +21,23 @@
           <!-- Wishlist Items -->
           <div class="max-w-7xl mx-auto mt-8">
               <div class="grid grid-cols-1 gap-6 lg:grid-cols-1">
-                  {% for restaurant in wishlist %}
-                  <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex items-center p-4">
-                      {% include 'main/templates/card_resto.html' %}
-                  </div>
-                  {% empty %}
-                  <p class="text-center text-gray-400">Your wishlist is empty.</p>
-                  {% endfor %}
+                {% if wishlist_items %}
+                <ul>
+                    {% for item in wishlist_items %}
+                        <li>
+                            {{ item.restaurant.name }} - 
+                            <em>Added on {{ item.added_at }}</em>
+                            <!-- Optional: Add a remove option -->
+                            <form action="{% url 'remove_from_wishlist' item.restaurant.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Remove</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Your wishlist is empty.</p>
+            {% endif %}
               </div>
           </div>
       </div>

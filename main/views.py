@@ -20,6 +20,8 @@ from django.contrib.auth.decorators import user_passes_test
 from user_role.views import admin_check
 from user_role.forms import CustomUserCreationForm
 from django.contrib.auth.models import Group
+from reviews.models import Review
+from reviews.forms import ReviewForm
 
 
 
@@ -159,11 +161,25 @@ def logout_user(request):
 
 def restaurant_details(request, id):
     restaurant = get_object_or_404(Restaurants, id=id)
+    reviews = Review.objects.filter(restaurant=restaurant)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user  # Automatically assign the logged-in user
+            review.restaurant = restaurant  # Automatically assign the restaurant
+            review.save()
+            return redirect('restaurant_details', id=restaurant.id)  # Redirect to avoid resubmission
+    else:
+        form = ReviewForm()
+
     context = {
-        'restaurant': restaurant
+        'restaurant': restaurant,
+        'reviews': reviews,
+        'form': form,
     }
     return render(request, 'restaurant_detail.html', context)
-
 @login_required(login_url="/login")
 @csrf_exempt
 def submit_quote(request):
