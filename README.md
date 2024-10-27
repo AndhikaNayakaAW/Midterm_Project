@@ -86,4 +86,4 @@ Non registered users, or guest users, have limited access. They can look up rest
 
 
 ## **Application deployment link**
-https://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id/
+http://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id/
