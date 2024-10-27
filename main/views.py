@@ -26,7 +26,7 @@ from reviews.forms import ReviewForm
 
 
 def show_main(request):
-    resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
+    resto_entries = Restaurants.objects.all().order_by('name')  # Ensure the correct model is used
 
     # Implement pagination
     paginator = Paginator(resto_entries, 6)  # Show 6 restaurants per page
@@ -36,13 +36,12 @@ def show_main(request):
     context = {
         "name": request.user.username,
         "resto_entries": page_obj,  # Pass the paginated entries to the template
-        "last_login": request.COOKIES.get("last_login", "Not set"),
     }
 
     return render(request, "main.html", context)
 
 def pagination_json(request):
-    resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
+    resto_entries = Restaurants.objects.all().order_by('name')  # Ensure the correct model is used
 
     # Implement pagination
     paginator = Paginator(resto_entries, 6)  # Show 6 restaurants per page
@@ -55,22 +54,8 @@ def pagination_json(request):
 
 @login_required(login_url="/login")
 @user_passes_test(admin_check, login_url='/unauthorized/')
-def create_restaurant_entry(request):
-    form = RestoEntryForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        restaurant_entry = form.save(commit=False)
-        restaurant_entry.user = request.user
-        restaurant_entry.save()
-        return redirect("main:show_main")
-
-    context = {"form": form}
-    return render(request, "create_new_resto.html", context)
-
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
 def show_xml(request):
-    data = Restaurants.objects.all()
+    data = Restaurants.objects.all().order_by('name')
     return HttpResponse(
         serializers.serialize("xml", data), content_type="application/xml"
     )
@@ -78,7 +63,7 @@ def show_xml(request):
 @login_required(login_url="/login")
 @user_passes_test(admin_check, login_url='/unauthorized/')
 def show_json(request):
-    data = Restaurants.objects.all()
+    data = Restaurants.objects.all().order_by('name')
     return HttpResponse(
         serializers.serialize("json", data), content_type="application/json"
     )
@@ -99,31 +84,13 @@ def show_json_by_id(request, id):
         serializers.serialize("json", data), content_type="application/json"
     )
 
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
-def edit_restaurant(request, id):
-    item = Restaurants.objects.get(pk=id)
-    form = RestoEntryForm(request.POST or None, instance=item)
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse("main:show_main"))
-    context = {"form": form}
-    return render(request, "edit_resto.html", context)
-
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
-def delete_restaurant(request, id):
-    item = Restaurants.objects.get(pk=id)
-    item.delete()
-    return HttpResponseRedirect(reverse("main:show_main"))
-
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'You have successfully registered.')
-            return redirect('main:login')
+            return redirect('main:login_user')
         else:
             for error in form.errors.values():
                 messages.error(request, error)
@@ -142,7 +109,6 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 response = HttpResponseRedirect(reverse("main:show_main"))
-                response.set_cookie("last_login", str(datetime.datetime.now()))
                 return response
             else:
                 messages.error(request, 'Username not found')
@@ -157,8 +123,7 @@ def login_user(request):
 @login_required(login_url="/login")
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse("main:login"))
-    response.delete_cookie("last_login")
+    response = HttpResponseRedirect(reverse("main:login_user"))
     return response
 
 def restaurant_details(request, id):

@@ -17,11 +17,11 @@
                     Wishlist
                 </a>
                 <span class="text-[#a06527] mr-4">Welcome, {{ user.username }}</span>
-                <a href="{% url 'main:logout' %}" class="text-center bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold py-2 px-4 rounded transition duration-300">
+                <a href="{% url 'main:logout_user' %}" class="text-center bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold py-2 px-4 rounded transition duration-300">
                     Logout
                 </a>
               {% else %}
-                <a href="{% url 'main:login' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
+                <a href="{% url 'main:login_user' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
                     Login
                 </a>
               {% endif %}
