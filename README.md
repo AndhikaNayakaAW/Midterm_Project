@@ -22,7 +22,7 @@ In the main page users can explore featured restaurants in the gallery, check ou
 
 **Navigation Bar**
 - Navbar (```navbar```)
-The navigation bar will display the following: the title of the website ‘A Thousand Flavors’ and text that shows ‘Welcome, {name}’ in which the user name changes depending on the name of the logged in user. The welcome text does not show if the user is not logged in. In addition, there are buttons for the interactive features, Explore, Wishlist and Favorites.
+The navigation bar will display the following: the title of the website A Thousand Flavors and text that shows Welcome, {name} in which the user name changes depending on the name of the logged in user. The welcome text does not show if the user is not logged in. In addition, there are buttons for the interactive features, Explore, Wishlist and Favorites.
 Logged in users can choose to log out by clicking on their username in the navigation bar and a pop out will appear to log out.
 
 **User Authentication Modules**
@@ -41,13 +41,13 @@ Shows a list of restaurants marked as favorite by the user
 - Add to Wishlist and Remove from Wishlist
 Users can add restaurant to a wishlist using ```add_to_wishlist``` and remove them if needed with ```remove_from_wishlist```
 - Wishlist (```show_wishlist```)
-Shows all restaurants in the user’s wishlist
+Shows all restaurants in the users wishlist
 - Add a Review (```add_review```)
 Allows users to add a review on restaurants they have visited. Could include ratings, comments, and other feedback
 - Restaurant of the Month (```restaurant_of_the_month```)
 Highlights a special restaurant each month on the main page
 - Search Restaurants (```search_restaurant```)
-Allows users to find restaurants by typing in the restaurant’s name
+Allows users to find restaurants by typing in the restaurants name
 - Google Maps location redirect (```redirect_to_google_maps```)
 Open Google Maps with directions to a specific restaurant directly from the site
 
@@ -67,14 +67,14 @@ Admins have full control over the platform's data. They can add new content such
 
 
 2. View All User Data
-Admins have access to the complete set of user data, including profiles, activity logs, and reviews. This allows them to monitor user interactions, track engagement, and ensure compliance with the platform’s guidelines. We can use this data for future modeling implementation.
+Admins have access to the complete set of user data, including profiles, activity logs, and reviews. This allows them to monitor user interactions, track engagement, and ensure compliance with the platforms guidelines. We can use this data for future modeling implementation.
 
 
 3. Modify Customer Reviews
 Admins can edit and remove customer reviews. By managing customer reviews, admins help maintain a constructive and informative environment for all users.
 
 4. Access and Modify Internal Data Formats
-Admins can work directly with the platform’s underlying data structures, such as JSON and XML files. This ability allows them to modify how data is stored, transferred, and displayed, ensuring smooth functionality and integration with backend systems. This technical capability is essential for optimizing performance and implementing new features.
+Admins can work directly with the platforms underlying data structures, such as JSON and XML files. This ability allows them to modify how data is stored, transferred, and displayed, ensuring smooth functionality and integration with backend systems. This technical capability is essential for optimizing performance and implementing new features.
 
 
 **Users**
@@ -86,4 +86,4 @@ Non registered users, or guest users, have limited access. They can look up rest
 
 
 ## **Application deployment link**
-https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id/
+https://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id/
