@@ -32,14 +32,17 @@ LOGIN_URL = '/login/'
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "andhika-nayaka-athousandflavour.pbp.cs.ui.ac.id",
+    "andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
-    "http://andhika-nayaka-athousandflavour.pbp.cs.ui.ac.id",
-    "https://andhika-nayaka-athousandflavour.pbp.cs.ui.ac.id",
+    "http://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "http://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
 ]
 
 # Application definition
