@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -40,6 +41,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
     "http://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
     "https://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "http://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
 ]
 
 # Application definition
