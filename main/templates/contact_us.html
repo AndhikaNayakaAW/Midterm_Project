@@ -11,22 +11,22 @@
       <form action="{% url 'main:contact_request' %}" id="contact-form" class="space-y-4" method="POST">
         {% csrf_token %}
         <div>
-          <label for="name" class="block text-sm font-medium text-white">Name</label>
+          <label for="name" class="block text-sm font-medium text-[#1C1711]">Name</label>
           <input type="text" id="name" name="name" required class="block w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm" placeholder="Your Name">
         </div>
 
         <div>
-          <label for="email" class="block text-sm font-medium text-white">Email</label>
-          <input type="email" id="email" name="email" required class="block w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm" placeholder="you@example.com">
+          <label for="email" class="block text-sm font-medium text-[#1C1711]">Email</label>
+          <input type="email" id="email" name="email" required class="block w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm bg-[#E7E6C1] focus:ring-amber-500 focus:border-amber-500 sm:text-sm text-[#1C1711]" placeholder="you@example.com">
         </div>
 
         <div>
-          <label for="message" class="block text-sm font-medium text-white">Message</label>
-          <textarea id="message" name="message" rows="4" required class="block w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm" placeholder="Write your message..."></textarea>
+          <label for="message" class="block text-sm font-medium text-[#1C1711]">Message</label>
+          <textarea id="message" name="message" rows="4" required class="block w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm text-[#1C1711]" placeholder="Write your message..."></textarea>
         </div>
 
         <div class="text-center">
-          <button type="submit" class="w-full px-4 py-2 bg-amber-600 text-[#1c1711] rounded-md hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300">Send Message</button>
+          <button type="submit" class="w-full px-4 py-2 bg-amber-600 text-[#1c1711] rounded-md hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300 text-[#1C1711]">Send Message</button>
         </div>
       </form>
     </div>
