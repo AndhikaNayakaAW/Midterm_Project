@@ -231,7 +231,7 @@ async function displayRestos(){
       htmlString += `
       <div class="relative break-inside-avoid w-45 h-45">
         <figure class="relative max-w-sm">
-            <a href="{/restaurant/${ resto.pk }">
+            <a href="/restaurant/${resto.pk}">
               <img class="h-auto transition-all duration-300 rounded-lg blur-sm hover:blur-none" style="width: 400px; height: 200px; object-fit: cover;" src="${resto.fields.image}" alt="image description">
             </a>
             <figcaption class="absolute px-4 text-xs text-white bottom-6">
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const previousButton = document.getElementById('previous');
 
     if (nextButton) {
-        nextButton.addEventListener('click', function(event) {
+        nextButton.addEventListener('click', async function(event) {
             event.preventDefault();
             const currentPage = getCurrentPage();
             let nextpage = currentPage
@@ -272,19 +272,19 @@ document.addEventListener('DOMContentLoaded', function() {
               nextPage = currentPage + 1;
             }
             updateUrl(nextPage);
-            displayRestos();
+            await displayRestos();
         });
     }
 
     if (previousButton) {
-        previousButton.addEventListener('click', function(event) {
+        previousButton.addEventListener('click', async function(event) {
             event.preventDefault();
             const currentPage = getCurrentPage();
             const previousPage = currentPage - 1;
             if (previousPage > 0) { 
                 updateUrl(previousPage);
             }
-            displayRestos();
+            await displayRestos();
         });
     }
 });
