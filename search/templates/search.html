@@ -41,8 +41,8 @@
         <a href="{% url 'main:restaurant_details' restaurant.id %}" class="block w-3/4 mx-auto">
           <li class="restaurant-item flex items-center bg-[#2F2821] border border-[#16120f] rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 p-5 transition-transform transform hover:scale-105">
             <div class="w-1/3">
-              {% if restaurant.image_url %}
-                <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}" class="rounded-lg w-full h-auto object-cover">
+              {% if restaurant.image %}
+                <img src="{{ restaurant.image }}" alt="{{ restaurant.name }}" class="rounded-lg w-full h-auto object-cover">
               {% else %}
                 <div class="bg-gray-300 rounded-lg w-full h-40 flex items-center justify-center text-black text-lg">
                   No Image Available
