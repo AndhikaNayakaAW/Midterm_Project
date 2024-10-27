@@ -7,21 +7,21 @@
         </a>
           <div class="hidden md:flex items-center">
               {% if user.is_authenticated %}
-                <a href="{% url 'favorites:view_favorites' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
+                <a href="{% url 'favorites:view_favorites' %}" class="text-center text-[#a06527] py-2 px-4 rounded" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
                     Favorites
                 </a>
-                <a href="{% url 'main:show_main' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
+                <a href="{% url 'main:show_main' %}" class="text-center text-[#a06527] py-2 px-4 rounded" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
                     Explore
                 </a>
-                <a href="{% url 'wishlist:view_wishlist' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
+                <a href="{% url 'wishlist:view_wishlist' %}" class="text-center text-[#a06527] py-2 px-4 rounded" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
                     Wishlist
                 </a>
-                <span class="text-[#a06527] mr-4">Welcome, {{ user.username }}</span>
-                <a href="{% url 'main:logout' %}" class="text-center bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold py-2 px-4 rounded transition duration-300">
+                <span class="text-[#a06527] mr-4" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">Welcome, {{ user.username }}</span>
+                <a href="{% url 'main:logout_user' %}" class="text-center bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold py-2 px-4 rounded transition duration-300" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-left: 16px;">
                     Logout
                 </a>
               {% else %}
-                <a href="{% url 'main:login' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
+                <a href="{% url 'main:login_user' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-left: 16px;">
                     Login
                 </a>
               {% endif %}
