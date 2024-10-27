@@ -3,6 +3,25 @@
 {% block content %} 
 {% include 'navbar.html' %}
 
+{% if messages %}
+<div class="fixed top-5 right-5 w-1/3 z-50">
+    {% for message in messages %}
+    <div class="flex items-center justify-between p-4 mb-4 text-sm rounded-lg 
+                {% if message.tags == 'success' %} bg-green-500 text-white 
+                {% elif message.tags == 'info' %} bg-blue-500 text-white 
+                {% elif message.tags == 'error' %} bg-red-500 text-white 
+                {% else %} bg-gray-500 text-white {% endif %}">
+        <span>{{ message }}</span>
+        <button type="button" onclick="this.parentElement.style.display='none'" class="ml-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="bg-[#1c1711] static flex min-h-screen bg-cover bg-fixed bg-no-repeat font-[Italiana] text-[#f8f0d3]">
   <div class="relative w-[45%]">
     <img src="{% static 'images/big_food.jpg' %}" alt="Restaurant Image" class="h-full w-full object-cover" />
@@ -29,9 +48,9 @@
             </svg>
           </a>
         
-          <a href="" class="w-10 h-10 p-2 bg-amber-300 rounded-full flex items-center justify-center hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <a href="{% url 'wishlist:add_to_wishlist' restaurant_id=restaurant.id %}" class="w-10 h-10 p-2 bg-amber-300 rounded-full flex items-center justify-center hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21Z"/>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 21-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21Z"/>
             </svg>
           </a>
         </div>
@@ -53,28 +72,28 @@
       <div class="mt-[30px]">
         <h1 class="text-center text-3xl font-bold">Reviews</h1>
       </div>
-
+      
       <h2 class="text-2xl font-semibold text-center text-[#f8f0d3] mb-6">{{ restaurant.name }}</h2>
       <div class="w-[75%] mx-auto rounded-lg bg-[#2F2821] p-6 flex flex-col items-center space-y-4">
           <form action="{% url 'main:create_restaurant_review' id=restaurant.id %}" method="POST" class="w-full flex flex-col items-center space-y-4">
               {% csrf_token %}
-              <div class="w-full text-white  space-y-">
-                  {{ form.as_p }}
-                  {% if form.errors %}
-                      <div class="text-red-500">
-                          <strong>Please correct the errors below:</strong>
-                          <ul>
-                              {% for field in form %}
-                                  {% for error in field.errors %}
-                                      <li>{{ error }}</li>
-                                  {% endfor %}
-                              {% endfor %}
-                              {% for error in form.non_field_errors %}
-                                  <li>{{ error }}</li>
-                              {% endfor %}
-                          </ul>
+              <div class="w-full text-white space-y-4">
+                  <div class="flex flex-col">
+                      <label for="id_rating" class="mb-1 font-semibold text-amber-500">Rating:</label>
+                      <div class="border border-amber-300 rounded-lg p-2">
+                          <select name="rating" class="w-full p-2 bg-[#1c1711] text-white focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-md">
+                              <option value="1">★ 1</option>
+                              <option value="2">★★ 2</option>
+                              <option value="3">★★★ 3</option>
+                              <option value="4">★★★★ 4</option>
+                              <option value="5">★★★★★ 5</option>
+                          </select>
                       </div>
-                  {% endif %}
+                  </div>
+                  <div class="flex flex-col mt-4">
+                      <label for="id_description" class="mb-1 font-semibold text-amber-500">Description:</label>
+                      <textarea name="description" rows="4" class="w-full p-2 bg-[#1c1711] border border-amber-300 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-lg"></textarea>
+                  </div>
               </div>
               <button type="submit" class="mt-4 w-full max-w-xs bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300">
                   Submit Review
@@ -82,35 +101,36 @@
           </form>
       </div>
       
-
-
-
-  </div>
-</div>
-</div>
-
-{% if reviews %}
-<div class="w-[75%] mx-auto mt-8">
-  <ul class="space-y-6">
-    {% for review in reviews %}
-    <li class="flex items-center bg-[#2F2821] border border-[#16120f] rounded-lg shadow-lg p-5 transition-transform transform hover:scale-105">
-      <div class="w-2/3 px-5">
-        <h3 class="text-xl font-bold tracking-tight text-[#ECE3C3] mb-2">{{ review.title }}</h3>
-        <p class="mb-1 font-medium text-[#ECE3C3]">{{ review.rating }}</p>
-        <p class="mb-2 italic font-light text-[#ECE3C3]">{{ review.description }}</p>
-        <div class="text-sm font-light text-[#ECE3C3]">
-          <p>By: <strong>{{ review.user }}</strong></p>
-          <p>On: <strong>{{ review.created_at }}</strong></p>
-        </div>
+      {% if reviews %}
+      <div class="w-[75%] mx-auto mt-8">
+        <ul class="space-y-6">
+          {% for review in reviews %}
+          <li class="flex items-center bg-[#2F2821] border border-[#16120f] rounded-lg shadow-lg p-5 transition-transform transform hover:scale-105">
+            <div class="w-full px-5">
+              <h3 class="text-xl font-bold tracking-tight text-[#ECE3C3] mb-2">
+                Rating: 
+                {% for i in "12345" %}
+                  {% if i|add:"0" <= review.rating %}
+                    <span class="text-amber-500">★</span>
+                  {% else %}
+                    <span class="text-gray-400">★</span>
+                  {% endif %}
+                {% endfor %}
+              </h3>
+              <p class="italic font-light text-[#ECE3C3]">Description: {{ review.description }}</p>
+              <div class="text-sm font-light text-[#ECE3C3] mt-2">
+                <p>By: <strong>{{ review.user }}</strong></p>
+                <p>On: <strong>{{ review.created_at }}</strong></p>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% else %}
-<br />
-<h1 class="font-bold text-center text-amber-900 dark:text-white">No reviews found for this restaurant.</h1>
-{% endif %}
-
+      {% else %}
+      <br />
+      <h1 class="font-bold text-center text-amber-900 dark:text-white">No reviews found for this restaurant.</h1>
+      {% endif %} 
+      
 {% include 'footer2.html' %}
 {% endblock %}
