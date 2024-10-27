@@ -21,3 +21,4 @@ class ReviewForm(forms.ModelForm):
                 'style': 'max-width: 200px;' 
             }),
         }
+
