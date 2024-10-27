@@ -41,8 +41,6 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
 def pagination_json(request):
     resto_entries = Restaurants.objects.all()  # Ensure the correct model is used
 
