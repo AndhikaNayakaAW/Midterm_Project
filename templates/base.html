@@ -3,20 +3,24 @@
 <html lang="en">
   <head>
     {% block meta %}
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
     {% endblock meta %}
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet" />
+    
+    <!-- Link to global.css using Django's static template tag -->
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+
     <style>
       body {
           background-color: rgba(28, 23, 17, 1); /* Dark brown background */
       }
-  </style>
+    </style>
   </head>
   
   <body>
     {% block content %} {% endblock content %}
   </body>
-  
 </html>

@@ -54,12 +54,11 @@
             {% if wishlist_items %}
                 <ul class="space-y-6">
                     {% for item in wishlist_items %}
-                        <li class="w-full max-w-md">
                             <!-- Include the restaurant card template for each wishlist item -->
                             {% include 'card_resto.html' with restaurant=item.restaurant %}
                             <!-- Remove button below the card, centered -->
                             <div class="flex justify-center mt-2">
-                                <form action="{% url 'wishlist:remove_from_wishlist' restaurant_id=item.restaurant.id %}" method="POST">
+                                <form action="{% url 'wishlist:remove_from_wishlist' restaurant_id=item.restaurant.id %}" method="POST" style="display:inline;">
                                     {% csrf_token %}
                                     <button type="submit" class="bg-red-500 text-white rounded-full p-3 hover:bg-red-600 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,7 +67,6 @@
                                     </button>
                                 </form>
                             </div>
-                        </li>
                     {% endfor %}
                 </ul>
             {% else %}

@@ -5,6 +5,36 @@
 {% endblock meta %} 
 {% block content %}
 
+<div class="flex flex-col items-center justify-center min-h-screen mr-80">
+  <!-- Welcome Text -->
+  <h1 class="welcome-text mb-4 text-4xl font-extrabold leading-none tracking-tight text-[#B89120] md:text-5xl lg:text-6xl dark:text-white text-center" 
+      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
+    <span>W</span><span>e</span><span>l</span><span>c</span><span>o</span><span>m</span><span>e</span><span>!</span>
+  </h1>
+  
+  <!-- Authentic Foods Text -->
+  <p class="authentic-text mb-6 text-lg font-normal text-[#ECE1B4] lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 text-center"
+  style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
+    <span>F</span><span>i</span><span>n</span><span>d</span> <span>a</span><span>u</span><span>t</span><span>h</span><span>e</span><span>n</span><span>t</span><span>i</span><span>c</span> 
+    <span>f</span><span>o</span><span>o</span><span>d</span><span>s</span> <span>i</span><span>n</span> <span>T</span><span>h</span><span>e</span> 
+    <span>T</span><span>h</span><span>o</span><span>u</span><span>s</span><span>a</span><span>n</span><span>d</span> <span>I</span><span>s</span><span>l</span><span>a</span><span>n</span><span>d</span><span>s</span><span>.</span>
+  </p>
+  
+<img src="/static/images/left_corner_circles.png" class="w-96 fixed left-0 bottom-0">
+<img src="/static/images/right_corner_circles.png" class="w-96 fixed top-16 right-80">
+
+  <!-- Start Exploring Button -->
+  <a href="{% url 'main:show_main' %}" class="explore-button inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-[#ECE1B4] bg-[#AB791B] rounded-lg hover:bg-[#625443] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+  style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
+    <!-- Typing effect for button text with spaces added -->
+    <span>S</span><span>t</span><span>a</span><span>r</span><span>t</span>
+    <span>&nbsp;</span> <!-- Add space here -->
+    <span>E</span><span>x</span><span>p</span><span>l</span><span>o</span><span>r</span><span>i</span><span>n</span><span>g</span>
+    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+    </svg>
+  </a>
+
 <aside id="default-sidebar" class="fixed top-0 right-0 z-40 w-96 h-screen transition-transform sm:translate-x-0" aria-label="Sidebar">
   <img src="/static/images/ATF.png" class="w-64 fixed right-14 top-44"/>
   <div class="h-full px-3 py-4 overflow-y-auto" style="background-color: #2C251E;">

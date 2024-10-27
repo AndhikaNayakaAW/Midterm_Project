@@ -22,13 +22,25 @@
 </div>
 {% endif %}
 
+
 <!-- Main -->
 <div class="min-h-screen flex">
-    <div class="w-1/2 relative">
+    <div style="width: 45%;" class="relative">
         <img src="{% static 'images/big_food.jpg' %}" alt="Left Side Image" class="object-cover w-full h-full">
     </div>
 
-    <div class="w-1/2 pt-12 px-6 lg:px-8 relative flex flex-col items-center">
+    <div style="width: 55%;" class="pt-12 px-6 lg:px-8 relative flex flex-col items-center">
+
+        <!-- Previous Button -->
+        <div class="absolute top-12 left-2 flex items-center">
+            <a href="{% url 'main:show_main' %}">
+                <button class="text-[#B89120] hover:text-[#C4A85E]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+            </a>
+        </div>
 
         <div class="text-center">
             <h2 class="text-4xl text-[#ECE3C3]" style="font-family: 'Italiana', serif; font-weight: 400; letter-spacing: 0.1em; word-spacing: 0.2em;">Favorites</h2>
@@ -39,18 +51,21 @@
             {% if favorites_items %}
                 <ul class="space-y-6">
                     {% for item in favorites_items %}
-                        <li class="w-full max-w-md">
-                            <!-- Restaurant card template for every favorite item -->
-                            {% include 'card_resto.html' with restaurant=item.restaurant %}
-                            <form action="{% url 'favorites:remove_from_favorites' restaurant_id=item.restaurant.id %}" method="POST" style="display:inline;">
+                        {% include 'card_resto.html' with restaurant=item.restaurant %}
+                        <div class="flex justify-center mt-2">
+                            <form action="{% url 'favorites:remove_from_favorites' restaurant_id=item.restaurant.id %}" method="POST">
                                 {% csrf_token %}
-                                <button type="submit" class="text-red-500 mt-2">Remove</button>
+                                <button type="submit" class="bg-red-500 text-white rounded-full p-3 hover:bg-red-600 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </form>
-                        </li>
+                        </div>
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="text-center">You have no favorite restaurants.</p>
+            <p class="text-lg text-[#ECE3C3]" style="font-family: 'Italiana', serif; font-weight: 400; letter-spacing: 0.1em; word-spacing: 0.2em;">You have no favorite restaurants.</p>
             {% endif %}
         </div>
     </div>
