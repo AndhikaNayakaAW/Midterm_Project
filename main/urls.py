@@ -33,4 +33,5 @@ urlpatterns = [
     path('restaurant/<str:id>/review/', create_restaurant_review, name='create_restaurant_review'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('unauthorized/', unauthorized, name='unauthorized'),
+    path('restaurant/<str:id>/', restaurant_details, name='restaurant_details'),
 ]
