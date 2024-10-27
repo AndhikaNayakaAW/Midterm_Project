@@ -12,16 +12,16 @@
     </div>
     <div id="quotes-display" class="text-xl mt-4 text-white italic font-serif"> </div>
     <form method="get" action="{% url 'search_restaurants' %}" class="max-w-md mx-auto mt-6">
-      <label for="default-search" class="mb-2 text-sm font-medium text-amber-900 sr-only dark:text-white">Search</label>
+      <label for="default-search" class="mb-2 text-sm font-medium text-[#1C1711] sr-only dark:text-[#1C1711]">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg class="w-4 h-4 text-amber-500 dark:text-amber-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </div>
-        <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-amber-900 border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-[#ece1B4] dark:border-amber-600 dark:placeholder-amber-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" 
+        <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-[#1C1711] dark:text-[#1C1711] border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-[#ece1B4] dark:border-amber-600 dark:placeholder-[#625443] dark:text-[#1C1711] dark:focus:ring-amber-500 dark:focus:border-amber-500" 
         placeholder="Search for Restaurants..." value="{{ query }}" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.1em;" required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#ece1B4] hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-[#ece1B4] dark:focus:ring-amber-800"
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#F8F0D3] hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-[#BD8928]  dark:hover:bg-[#ece1B4] dark:focus:ring-amber-800"
         style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">Search</button>
       </div>
     </form>
@@ -145,61 +145,61 @@
   <figure class="relative">
     <a href="search/?query=seafood">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/736x/55/69/92/55699222d5461ae11a4524628a778a32.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/736x/55/69/92/55699222d5461ae11a4524628a778a32.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Seafood</p>
+        <p>Seafood</p>
     </figcaption>
   </figure>
   <figure class="relative">
     <a href="search/?query=noodles">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/50/59/ce/5059ce70b7cbd1e4ff3aec5992e87b55.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/564x/50/59/ce/5059ce70b7cbd1e4ff3aec5992e87b55.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Noodles</p>
+        <p>Noodles</p>
     </figcaption>
   </figure>
   <figure class="relative">
     <a href="search/?query=Coffee & Snacks">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/08/5f/43/085f433918cd48fde92532c5e7bf7a5e.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/564x/08/5f/43/085f433918cd48fde92532c5e7bf7a5e.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Coffee and Snacks</p>
+        <p>Coffee and Snacks</p>
     </figcaption>
   </figure>
   <figure class="relative">
     <a href="search/?query=International">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/c8/10/e8/c810e86d7ab596dc2b0f06c5f7cdd194.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/564x/c8/10/e8/c810e86d7ab596dc2b0f06c5f7cdd194.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">International</p>
+        <p>International</p>
     </figcaption>
   </figure>
   <figure class="relative">
     <a href="search/?query=Indonesian">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/736x/fe/cf/39/fecf3979d5db81044338ceaeced2fc02.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/736x/fe/cf/39/fecf3979d5db81044338ceaeced2fc02.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Indonesian</p>
+        <p>Indonesian</p>
     </figcaption>
   </figure>
   <figure class="relative">
     <a href="search/?query=Local">
         <div class="overflow-hidden rounded-lg h-35">
-            <img class="w-full h-20 object-cover" src="https://i.pinimg.com/564x/65/85/6d/65856d1a3fd82886a666061ce8489fe4.jpg" alt="image description">
+            <img class="w-full h-20 object-cover opacity-75 transition-transform transform hover:scale-105" src="https://i.pinimg.com/564x/65/85/6d/65856d1a3fd82886a666061ce8489fe4.jpg" alt="image description">
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Local Dishes</p>
+        <p>Local Dishes</p>
     </figcaption>
   </figure>
 </div>

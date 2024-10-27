@@ -39,7 +39,7 @@
     {% if results %}
       {% for restaurant in results %}
         <a href="{% url 'main:restaurant_details' restaurant.id %}" class="block w-3/4 mx-auto">
-          <li class="restaurant-item flex items-center bg-[#2F2821] border border-[#16120f] rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 p-5 transition-transform transform hover:scale-105">
+          <li class="restaurant-item flex items-center bg-[#2F2821] border border-[#16120f] rounded-lg shadow-lg dark:bg-[#2F2821] dark:border-gray-700 p-5 transition-transform transform hover:scale-105">
             <div class="w-1/3">
               {% if restaurant.image %}
                 <img src="{{ restaurant.image }}" alt="{{ restaurant.name }}" class="rounded-lg" style="width: 400px; height: 200px; object-fit: cover;">
