@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v68i*!i(z+wq!8u^#05hi(og=2it(q@3nl3^d#3g@8n3mo%!vu"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-v68i*!i(z+wq!8u^#05hi(og=2it(q@3nl3^d#3g@8n3mo%!vu")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 PRODUCTION = os.getenv("PRODUCTION", False)
@@ -32,9 +32,15 @@ LOGIN_URL = '/login/'
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "http://pbp.cs.ui.ac.id/andhika.nayaka/athousandflavours",
+    "andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+    "https://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
+]
 
 # Application definition
 
@@ -141,10 +147,3 @@ else:
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost",
-    "http://127.0.0.1",
-    "http://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
-    "https://andhika-nayaka-athousandflavours.pbp.cs.ui.ac.id",
-]
