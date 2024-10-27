@@ -10,7 +10,7 @@
                 <a class="text-center text-[#a06527] py-2 px-4 rounded ">
                     Favorites
                 </a>
-                <a href="{% url 'search:search_restaurants' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
+                <a href="{% url 'main:show_main' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
                     Explore
                 </a>
                 <a href="{% url 'wishlist:view_wishlist' %}" class="text-center text-[#a06527] py-2 px-4 rounded ">
@@ -21,9 +21,6 @@
                     Logout
                 </a>
               {% else %}
-                <a href="{% url 'search:search_restaurants' %}" class="text-center text-[#a06527] py-2 px-4 rounded transition ">
-                    Explore
-                </a>
                 <a href="{% url 'main:login' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
                     Login
                 </a>
