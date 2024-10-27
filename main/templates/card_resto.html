@@ -1,0 +1,16 @@
+
+    <div class="relative break-inside-avoid w-45 h-45">
+        <figure class="relative max-w-sm">
+            <a href="{% url 'main:restaurant_details' restaurant.id %}">
+              <img class="h-auto transition-all duration-300 rounded-lg blur-sm hover:blur-none" style="width: 400px; height: 200px; object-fit: cover;" src="{{restaurant.image}}" alt="image description">
+            </a>
+            <figcaption class="absolute px-4 text-xs text-white bottom-6">
+                <p>{{ restaurant.name }}</p>
+            </figcaption>
+          </figure>
+    </div>
+
+
+    
+
+  
