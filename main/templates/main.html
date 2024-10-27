@@ -19,8 +19,10 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </div>
-        <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-amber-900 border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-[#ece1B4] dark:border-amber-600 dark:placeholder-amber-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for Restaurants..." value="{{ query }}" required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#ece1B4] hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-[#ece1B4] dark:focus:ring-amber-800">Search</button>
+        <input type="search" id="default-search" name="query" class="block w-full p-4 ps-10 text-sm text-amber-900 border border-amber-300 rounded-full bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-[#ece1B4] dark:border-amber-600 dark:placeholder-amber-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" 
+        placeholder="Search for Restaurants..." value="{{ query }}" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.1em;" required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#ece1B4] hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-[#ece1B4] dark:focus:ring-amber-800"
+        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">Search</button>
       </div>
     </form>
 
@@ -34,7 +36,7 @@
 
 <div class="flex items-center justify-center">
   <div class="block w-full max-w-md h-10 p-5 bg-[#1c1711] border-2 border-[#ece1B4] rounded-full shadow-lg text-center">
-      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4">
+      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           G&nbsp;A&nbsp;L&nbsp;L&nbsp;E&nbsp;R&nbsp;Y
       </h5>
   </div>
@@ -44,7 +46,7 @@
 <br />
 
 {% if not resto_entries %}
-<p>There are no restaurants in the database.</p>
+<p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">There are no restaurants in the database.</p>
 {% else %}
   <div id="resto_entry" class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-3/4 mx-auto">
         {% for restaurant in resto_entries %}
@@ -55,21 +57,25 @@
 
     <div class="flex justify-center mt-4 space-x-2">
       {% if resto_entries.has_previous %}
-      <a id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white">
+      <a id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white" 
+      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           Previous
       </a>
       {% else %}
-      <span id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed">
+      <span id="previous" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed"
+      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           Previous
       </span>
       {% endif %}
   
       {% if resto_entries.has_next %}
-      <a id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white">
+      <a id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-500 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 hover:text-amber-700 dark:bg-amber-800 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-700 dark:hover:text-white"
+      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           Next
       </a>
       {% else %}
-      <span id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed">
+      <span id="next" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-amber-300 bg-white border border-amber-300 rounded-lg cursor-not-allowed"
+      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           Next
       </span>
       {% endif %}
@@ -129,7 +135,7 @@
 <br />
 <div class="flex items-center justify-center">
   <div class="block w-full max-w-md h-10 p-5 bg-[#1c1711] border-2 border-[#ece1B4] rounded-full shadow-lg text-center">
-      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4">
+      <h5 class="text-xl font-extralight tracking-widest text-[#ece1B4] -mt-4" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
           C&nbsp;A&nbsp;T&nbsp;E&nbsp;G&nbsp;O&nbsp;R&nbsp;I&nbsp;E&nbsp;S
       </h5>
   </div>
@@ -143,7 +149,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>Seafood</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Seafood</p>
     </figcaption>
   </figure>
   <figure class="relative">
@@ -153,7 +159,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>Noodles</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Noodles</p>
     </figcaption>
   </figure>
   <figure class="relative">
@@ -163,7 +169,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>Coffee and Snacks</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Coffee and Snacks</p>
     </figcaption>
   </figure>
   <figure class="relative">
@@ -173,7 +179,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>International</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">International</p>
     </figcaption>
   </figure>
   <figure class="relative">
@@ -183,7 +189,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>Indonesian</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Indonesian</p>
     </figcaption>
   </figure>
   <figure class="relative">
@@ -193,7 +199,7 @@
         </div>
     </a>
     <figcaption class="absolute px-4 text-lg text-white bottom-6">
-        <p>Local Dishes</p>
+        <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Local Dishes</p>
     </figcaption>
   </figure>
 </div>
@@ -235,7 +241,7 @@ async function displayRestos(){
               <img class="h-auto transition-all duration-300 rounded-lg blur-sm hover:blur-none" style="width: 400px; height: 200px; object-fit: cover;" src="${resto.fields.image}" alt="image description">
             </a>
             <figcaption class="absolute px-4 text-xs text-white bottom-6">
-                <p>${ resto.fields.name }</p>
+                <p style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">${ resto.fields.name }</p>
             </figcaption>
           </figure>
     </div>
