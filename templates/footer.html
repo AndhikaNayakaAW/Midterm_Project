@@ -3,7 +3,11 @@
       <form id="quote-form" class="flex flex-col items-center mb-4 space-y-4">
           <label for="quote-input" class="block text-sm font-medium" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Say Something Nice to See Something Nice:</label>
           <textarea id="quote-input" class="p-2 border border-gray-300 rounded text-black" placeholder="Enter your quote..." style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;" required></textarea>
+          {% if user.is_authenticated %}
           <button type="submit" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 transition-all" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Submit</button>
+          {% else %}
+          <a href="{% url 'main:login' %}" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 transition-all" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Submit</a>
+          {% endif %}
           <a href="{% url 'main:show_contact' %}" class="text-[#a06527] py-2 px-4 rounded" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">Contact Us</a>
       </form>
   </div>

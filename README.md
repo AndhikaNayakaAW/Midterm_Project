@@ -25,16 +25,6 @@ In the main page users can explore featured restaurants in the gallery, check ou
 The navigation bar will display the following: the title of the website ‘A Thousand Flavors’ and text that shows ‘Welcome, {name}’ in which the user name changes depending on the name of the logged in user. The welcome text does not show if the user is not logged in. In addition, there are buttons for the interactive features, Explore, Wishlist and Favorites.
 Logged in users can choose to log out by clicking on their username in the navigation bar and a pop out will appear to log out.
 
-
-**Restaurant Management Modules**
-- Add New Restaurant (```create_restaurant_entry```)
-Allows us add new restaurant to the site
-- Edit Restaurant (```edit_restaurant```)
-Allows us to update details for a specific restaurant if something changes or new info needs to be added.
-- Delete Restaurant (```delete_restaurant```)
-Gives us the option to remove a restaurant listing if it is no longer relevant
-
-
 **User Authentication Modules**
 - Sign Up (```register```)
 Provides a page for new users to register their account
@@ -42,7 +32,6 @@ Provides a page for new users to register their account
 Allows returning users to log in and access their saved preferences
 - Logout (```logout_user```)
 Log out the current user
-
 
 **Interactive Features**
 - Add to Favorites (```add_to_favorites```)
@@ -61,7 +50,6 @@ Highlights a special restaurant each month on the main page
 Allows users to find restaurants by typing in the restaurant’s name
 - Google Maps location redirect (```redirect_to_google_maps```)
 Open Google Maps with directions to a specific restaurant directly from the site
-
 
 ## **Source of initial dataset for main product category**
 https://docs.google.com/spreadsheets/d/15E1xJK2QDuCy3dWdd7jCqVFBHhm_CS1D6vKP3dhr_dg/edit?gid=0#gid=0
@@ -83,8 +71,7 @@ Admins have access to the complete set of user data, including profiles, activit
 
 
 3. Modify Customer Reviews
-Admins can edit, approve, or remove customer reviews. By managing customer reviews, admins help maintain a constructive and informative environment for all users.
-
+Admins can edit and remove customer reviews. By managing customer reviews, admins help maintain a constructive and informative environment for all users.
 
 4. Access and Modify Internal Data Formats
 Admins can work directly with the platform’s underlying data structures, such as JSON and XML files. This ability allows them to modify how data is stored, transferred, and displayed, ensuring smooth functionality and integration with backend systems. This technical capability is essential for optimizing performance and implementing new features.
