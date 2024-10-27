@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from main.models import Restaurants, Quotes
+from favorites.models import Favorite
 from main.forms import RestoEntryForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
@@ -197,3 +198,18 @@ def contact_request(request):
 
 def unauthorized(request):
     return render(request, 'unauthorized.html')
+
+@login_required
+@csrf_exempt  # Only if necessary for your AJAX calls
+def add_to_favorites(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurants, id=restaurant_id)
+    favorites_item, created = Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
+
+    if created:
+        message = f"{restaurant.name} has been added to your favorites."
+        success = True
+    else:
+        message = f"{restaurant.name} is already in your favorites."
+        success = False
+
+    return JsonResponse({'success': success, 'message': message})
