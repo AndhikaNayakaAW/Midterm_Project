@@ -20,11 +20,11 @@
     <span>T</span><span>h</span><span>o</span><span>u</span><span>s</span><span>a</span><span>n</span><span>d</span> <span>I</span><span>s</span><span>l</span><span>a</span><span>n</span><span>d</span><span>s</span><span>.</span>
   </p>
   
-<img src="/static/images/left_corner_circles.png" class="w-96 fixed left-0 bottom-0">
+<img src="/static/images/left_corner_circle.png" class="w-96 fixed left-0 bottom-0">
 <img src="/static/images/right_corner_circles.png" class="w-96 fixed top-16 right-80">
 
   <!-- Start Exploring Button -->
-  <a href="{% url 'main:show_main' %}" class="explore-button inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-[#ECE1B4] bg-[#AB791B] rounded-lg hover:bg-[#625443] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+  <a href="{% url 'main:show_main' %}" class="explore-button inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-[#ECE1B4] bg-[#AB791B] rounded-lg hover:bg-[#625443] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 rounded transition duration-300"
   style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em;">
     <!-- Typing effect for button text with spaces added -->
     <span>S</span><span>t</span><span>a</span><span>r</span><span>t</span>
@@ -48,32 +48,27 @@
         </div>
       {% endif %}
       <div class="mb-4">
-        <input type="text" name="username" id="username" placeholder="Username" 
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" 
-        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;" required>
+        <input type="text" name="username" id="username" placeholder="Username" class="text-[#1C1711] mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 bg-[#fdfce2] sm:text-sm placeholder-[#93897C]" required>
       </div>
       <div class="mb-4">
-        <input type="password" name="password1" id="password1" placeholder="Password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" 
-        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;" required>
+        <input type="password" name="password1" id="password1" placeholder="Password" class="text-[#1C1711] mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 bg-[#fdfce2] sm:text-sm placeholder-[#93897C]" required>
       </div>
       <div class="mb-4">
-        <input type="password" name="password2" id="password2" placeholder="Password Confirmation" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" 
-        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;" required>
+        <input type="password" name="password2" id="password2" placeholder="Password Confirmation" class="text-[#1C1711] mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 bg-[#fdfce2] sm:text-sm placeholder-[#93897C]" required>
       </div>
       <div class="mb-4">
-      <select id="group" name="group" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-[#fdfce2] sm:text-sm" 
-      style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
-        <option value="User">User</option>
-        <option value="Admin">Admin</option>
-      </select>
+        <select id="group" name="group" class="text-[#1C1711] mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 bg-[#fdfce2] sm:text-sm">
+          <option value="User" style="color: #1C1711; font-weight: 600;">User</option>
+          <option value="Admin" style="color: #1C1711; font-weight: 600;">Admin</option>
+        </select>
       </div>
       <div class="mb-4">
-        <button type="submit" class="w-full px-3 py-2 text-white bg-[#b88d20] rounded-md hover:bg-[#976A15] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 " 
+        <button type="submit" class="w-full px-3 py-2 text-white bg-[#b88d20] rounded-md hover:bg-[#976A15] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white-500 rounded transition duration-300" 
         style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">Register</button>
       </div>
       <div class="mb-4">
-        <p class="text-[#ECE1B4] text-sm" 
-        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">Have an account? <a href="{% url 'main:login' %}" class="text-[#ECE1B4] text-sm underline hover:text-[#FDFCE2]" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;" >Login</a></p>
+        <p class="text-[#F8F0D3] text-sm" 
+        style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">Have an account? <a href="{% url 'main:login' %}" class="text-[#b88d20] underline hover:text-[#FDFCE2] transition duration-300 text-sm underline" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;" >Login</a></p>
       </div>
     </form>
   </div>
@@ -87,10 +82,10 @@
           <img src="{% static 'images/ATF.png' %}" class="w-24 h-11 mb-1"/>
         </a>
           <div class="hidden md:flex items-center">
-                <a href="{% url 'main:show_main' %}" class="text-center text-[#a06527] py-2 px-4 rounded transition " style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
+                <a href="{% url 'main:show_main' %}" class="text-center text-[#C0713C] hover:text-[#DE9B4E] py-2 px-4 rounded transition" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em; margin-right: 16px;">
                     Explore
                 </a>
-                <a href="{% url 'main:login' %}" class="text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300" style="font-family: 'Italiana', serif; font-weight: 800; letter-spacing: 0.1em; word-spacing: 0.2em;">
+                <a href="{% url 'main:login' %}" class="text-center bg-[#AB791B] hover:bg-[#945814] text-white py-2 px-4 rounded transition duration-300">
                     Login
                 </a>
           </div>
