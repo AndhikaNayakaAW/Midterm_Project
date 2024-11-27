@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
     "andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
+    "10.0.2.2",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -59,8 +60,17 @@ INSTALLED_APPS = [
     "favorites",
     "wishlist",
     "user_role",
-    "reviews"
+    "reviews",
+    "authentication",
+    "corsheaders",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -71,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "a_thousand_flavours.urls"
