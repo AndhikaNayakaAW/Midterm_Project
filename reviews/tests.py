@@ -44,7 +44,7 @@ class ReviewTests(TestCase):
             'description': 'Good food and service.'
         })
         self.assertEqual(response.status_code, 302)
-        self.assertIn('/accounts/login/', response.url)
+        self.assertIn('/login/?next=', response.url)
 
     def test_redirect_after_review_submission(self):
         self.client.login(username='testuser', password='testpassword')
@@ -54,4 +54,3 @@ class ReviewTests(TestCase):
         })
         expected_url = reverse('main:restaurant_details', args=[self.restaurant.id])
         self.assertRedirects(response, expected_url)
-

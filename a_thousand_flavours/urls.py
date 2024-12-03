@@ -9,7 +9,7 @@ urlpatterns = [
     path("", include("favorites.urls")),
     path("", include("wishlist.urls")),
     path("", include("search.urls")),
-    path("", include("reviews.urls")),
+    path("reviews/", include("reviews.urls")),
     path("search/", search_restaurants, name="search_restaurants"),
     path('auth/', include('authentication.urls')),
 ]
