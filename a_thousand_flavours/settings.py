@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:64766",
     "http://localhost",
     "http://127.0.0.1",
     "http://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
@@ -173,6 +174,10 @@ SESSION_COOKIE_SAMESITE = 'None'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
+     'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.IsAuthenticated',
+     ],
 }

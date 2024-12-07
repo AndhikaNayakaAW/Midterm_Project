@@ -8,3 +8,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['id', 'user', 'restaurant', 'rating', 'description', 'created_at']
+
+# class ReviewSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Review
+#         fields = ['id', 'user', 'restaurant', 'rating', 'description', 'created_at']
