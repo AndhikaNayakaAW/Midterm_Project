@@ -39,12 +39,16 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:64766",
+    "http://localhost:56656",
     "http://localhost",
     "http://127.0.0.1",
     "http://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
     "https://andhika-nayaka-athousandflavor.pbp.cs.ui.ac.id",
     "http://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
     "https://andhika-nayaka-athousandflavourmidterm.pbp.cs.ui.ac.id",
+    "http://localhost:49693",
+    "http://localhost:58149",
+    "http://127.0.0.1:58149",
 ]
 
 # Application definition
@@ -167,8 +171,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
 
