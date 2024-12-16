@@ -1,3 +1,4 @@
+#reviews/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view, permission_classes
@@ -10,9 +11,18 @@ from .serializers import ReviewSerializer
 from main.models import Restaurants
 from urllib.parse import unquote  # For decoding URL-encoded names
 from django.http import Http404
-from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
-# Web-based functionality for submitting reviews
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from uuid import UUID
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+@ensure_csrf_cookie
+def csrf_token_view(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})
+
+
 @login_required
 def submit_review(request, restaurant_id):
     restaurant = get_object_or_404(Restaurants, id=restaurant_id)
@@ -41,6 +51,7 @@ def submit_review(request, restaurant_id):
 @permission_classes([IsAuthenticated])
 def submit_review_api(request, restaurant_id):
     try:
+        print(f"Request Data: {request.data}")  # Debug request data
         print(f"Authenticated: {request.user.is_authenticated}")
         print(f"User: {request.user}")
 
@@ -48,19 +59,23 @@ def submit_review_api(request, restaurant_id):
         if not request.user.is_authenticated:
             return Response({"error": "User is not authenticated."}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # Get restaurant object
+        # Get the restaurant object
         restaurant = get_object_or_404(Restaurants, id=restaurant_id)
 
         # Prepare data for the serializer
         data = request.data.copy()
-        data['user'] = request.user.id  # Pass the user ID
-        data['restaurant'] = restaurant.id  # Pass the restaurant ID
+        data['restaurant_id'] = str(restaurant.id)  # Pass restaurant_id as a string
 
+        print(f"Modified Data: {data}")  # Debug modified data
+
+        # Pass the modified data to the serializer
         serializer = ReviewSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            print(f"Saving review for user: {request.user.id}")  # Debug user info
+            serializer.save(user=request.user)  # Assign the logged-in user
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(f"Validation Errors: {serializer.errors}")  # Debug validation errors
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         print(f"Error: {str(e)}")
