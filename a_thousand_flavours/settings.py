@@ -49,7 +49,11 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:49693",
     "http://localhost:58149",
     "http://127.0.0.1:58149",
-]
+
+    ] + [f"http://localhost:{port}" for port in range(3000, 9001)] + \
+    [f"http://127.0.0.1:{port}" for port in range(3000, 9001)] + \
+    [f"http://localhost:{port}" for port in range(1, 65536)] + \
+    [f"http://127.0.0.1:{port}" for port in range(1, 65536)]
 
 # Application definition
 
