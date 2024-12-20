@@ -89,11 +89,7 @@ def view_wishlist_flutter(request):
 @permission_classes([IsAuthenticated])
 def add_to_wishlist_flutter(request, restaurant_id):
     try:
-        
-        # Get the restaurant object
         restaurant = get_object_or_404(Restaurants, id=restaurant_id)
-
-        # Add the restaurant to the user's wishlist
         wishlist_item, created = Reserve.objects.get_or_create(user=request.user, restaurant=restaurant)
 
         if created:
@@ -101,7 +97,6 @@ def add_to_wishlist_flutter(request, restaurant_id):
         else:
             message = f"{restaurant.name} is already in your wishlist."
 
-        # Fetch the updated wishlist
         wishlist_items = Reserve.objects.filter(user=request.user).select_related('restaurant')
         wishlist_data = [
             {
@@ -109,7 +104,7 @@ def add_to_wishlist_flutter(request, restaurant_id):
                 "name": item.restaurant.name,
                 "category": item.restaurant.cuisine,
                 "image_url": item.restaurant.image,
-                "rating": 5,  # Replace with actual rating if available
+                "rating": 5,  
             }
             for item in wishlist_items
         ]
@@ -133,11 +128,8 @@ def add_to_wishlist_flutter(request, restaurant_id):
 @permission_classes([IsAuthenticated])
 def remove_from_wishlist_flutter(request, restaurant_id):
     try:
-        # Get the wishlist item for the user and the specific restaurant
         wishlist_item = Reserve.objects.get(user=request.user, restaurant_id=restaurant_id)
         wishlist_item.delete()
-
-        # Fetch the updated wishlist
         wishlist_items = Reserve.objects.filter(user=request.user).select_related('restaurant')
         wishlist_data = [
             {
@@ -145,7 +137,7 @@ def remove_from_wishlist_flutter(request, restaurant_id):
                 "name": item.restaurant.name,
                 "category": item.restaurant.cuisine,
                 "image_url": item.restaurant.image,
-                "rating": 5,  # Replace with actual rating if available
+                "rating": 5,  
                 
             }
             for item in wishlist_items
