@@ -7,11 +7,16 @@ class Favorite(models.Model):
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.user.username} - {self.restaurant.name}"
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     island = models.CharField(max_length=63)
     cuisine = models.CharField(max_length=63)
+    contacts = models.CharField(max_length=63) 
     gmaps = models.TextField()
-    contacts = models.CharField(max_length=63)
+    image = models.TextField(default="")
+    
     def __str__(self):
         return f"{self.user.username} - {self.restaurant.name}"

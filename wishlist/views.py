@@ -90,7 +90,7 @@ def view_wishlist_flutter(request):
 def add_to_wishlist_flutter(request, restaurant_id):
     try:
         restaurant = get_object_or_404(Restaurants, id=restaurant_id)
-        wishlist_item, created = Reserve.objects.get_or_create(user=request.user, restaurant=restaurant)
+        wishlist_items, created = Reserve.objects.get_or_create(user=request.user, restaurant=restaurant)
 
         if created:
             message = f"{restaurant.name} has been added to your wishlist."
