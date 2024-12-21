@@ -1,12 +1,80 @@
-<div class="mx-auto mt-6 flex w-full flex-col items-center rounded-lg bg-[#2F2821] p-4">
-    <div class="flex w-full items-center justify-between">
-      <div class="h-10 w-10 rounded-full bg-[#B89120]"></div>
-      <div class="flex flex-col items-center">
-        <p class="text-white">Username</p>
-        <p class="text-gray-400">DD/MM/YYYY</p>
+<div id="review-form-container" class="w-[75%] mx-auto rounded-lg bg-[#2F2821] p-6 flex flex-col items-center space-y-4">
+  <form id="review-form" class="w-full flex flex-col items-center space-y-4">
+      {% csrf_token %}
+      <div class="w-full text-white space-y-4">
+          <div class="flex flex-col">
+              <label for="id_rating" class="mb-1 font-semibold text-amber-500">Rating:</label>
+              <div class="border border-amber-300 rounded-lg p-2">
+                  <select id="rating" name="rating" class="w-full p-2 bg-[#1c1711] text-white focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-md">
+                      <option value="1">★ 1</option>
+                      <option value="2">★★ 2</option>
+                      <option value="3">★★★ 3</option>
+                      <option value="4">★★★★ 4</option>
+                      <option value="5">★★★★★ 5</option>
+                  </select>
+              </div>
+          </div>
+          <div class="flex flex-col mt-4">
+              <label for="id_description" class="mb-1 font-semibold text-amber-500">Description:</label>
+              <textarea id="description" name="description" rows="4" class="w-full p-2 bg-[#1c1711] border border-amber-300 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-lg"></textarea>
+          </div>
       </div>
-    </div>
-    <div class="mt-4 text-center text-white">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-  </div>
+      <button type="button" id="submit-review" class="mt-4 w-full max-w-xs bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300">
+          Submit Review
+      </button>
+  </form>
+</div>
+
+<div id="reviews-list" class="w-[75%] mx-auto mt-8">
+  <ul class="space-y-6">
+      <!-- Dynamically updated reviews will be appended here -->
+  </ul>
+</div>
+
+<script>
+document.getElementById('submit-review').addEventListener('click', function() {
+  const rating = document.getElementById('rating').value;
+  const description = document.getElementById('description').value;
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  fetch("{% url 'submit_review' restaurant_id=restaurant.id %}", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+      },
+      body: JSON.stringify({
+          'rating': rating,
+          'description': description
+      }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Create a new review element and append it to the reviews list
+          const reviewElement = document.createElement('li');
+          reviewElement.classList.add('flex', 'items-center', 'bg-[#2F2821]', 'border', 'border-[#16120f]', 'rounded-lg', 'shadow-lg', 'p-5', 'transition-transform', 'transform', 'hover:scale-105');
+          reviewElement.innerHTML = `
+              <div class="w-full px-5">
+                  <h3 class="text-xl font-bold tracking-tight text-[#ECE3C3] mb-2">
+                      Rating: ${'★'.repeat(data.review.rating)}
+                  </h3>
+                  <p class="italic font-light text-[#ECE3C3]">Description: ${data.review.description}</p>
+                  <div class="text-sm font-light text-[#ECE3C3] mt-2">
+                      <p>By: <strong>${data.review.user}</strong></p>
+                      <p>On: <strong>${data.review.created_at}</strong></p>
+                  </div>
+              </div>
+          `;
+          document.querySelector('#reviews-list ul').prepend(reviewElement);
+
+          // Clear the form fields
+          document.getElementById('rating').value = '';
+          document.getElementById('description').value = '';
+      } else {
+          alert('Error submitting review: ' + data.error);
+      }
+  })
+  .catch(error => console.error('Error:', error));
+});
+</script>

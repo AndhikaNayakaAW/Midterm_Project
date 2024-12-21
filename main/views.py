@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
@@ -61,8 +62,8 @@ def show_xml(request):
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
+# @login_required(login_url="/login")
+# @user_passes_test(admin_check, login_url='/unauthorized/')
 def show_json(request):
     data = Restaurants.objects.all().order_by('name')
     return HttpResponse(
@@ -77,8 +78,8 @@ def show_xml_by_id(request, id):
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
-@login_required(login_url="/login")
-@user_passes_test(admin_check, login_url='/unauthorized/')
+# @login_required(login_url="/login")
+# @user_passes_test(admin_check, login_url='/unauthorized/')
 def show_json_by_id(request, id):
     data = Restaurants.objects.filter(pk=id)
     return HttpResponse(
@@ -213,3 +214,5 @@ def add_to_favorites(request, restaurant_id):
         success = False
 
     return JsonResponse({'success': success, 'message': message})
+
+
