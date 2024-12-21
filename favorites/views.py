@@ -30,7 +30,7 @@ def view_favorites(request):
     return render(request, 'favorites.html', context)
 
 @login_required
-@csrf_exempt  # Only if necessary for your AJAX calls
+@csrf_exempt
 def add_to_favorites(request, restaurant_id):
     restaurant = get_object_or_404(Restaurants, id=restaurant_id)
     favorites_item, created = Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
@@ -72,13 +72,11 @@ def view_favorites_flutter(request):
             {
                 "id": favorite.restaurant.id,
                 "name": favorite.restaurant.name,
-                "island": favorite.restaurant.island,
                 "category": favorite.restaurant.cuisine,
-                "contacts": favorite.restaurant.contacts,
-                "gmaps": favorite.restaurant.gmaps,
                 "image_url": favorite.restaurant.image,
-                "is_bookmark":'yes',
+                "rating": 5,
                 "is_favorite":'yes',
+                "is_bookmark":'yes'
             }
             for favorite in favorites_items
         ]
@@ -110,11 +108,9 @@ def add_to_favorites_flutter(request, restaurant_id):
             {
                 "id": favorite.restaurant.id,
                 "name": favorite.restaurant.name,
-                "island": favorite.restaurant.island,
                 "category": favorite.restaurant.cuisine,
-                "contacts": favorite.restaurant.contacts,
-                "gmaps": favorite.restaurant.gmaps,
                 "image_url": favorite.restaurant.image,
+                "rating": 5,
             }
             for favorite in favorites_items
         ]
@@ -147,11 +143,9 @@ def remove_from_favorites_flutter(request, restaurant_id):
             {
                 "id": favorite.restaurant.id,
                 "name": favorite.restaurant.name,
-                "island": favorite.restaurant.island,
                 "category": favorite.restaurant.cuisine,
-                "contacts": favorite.restaurant.contacts,
-                "gmaps": favorite.restaurant.gmaps,
                 "image_url": favorite.restaurant.image,
+                "rating": 5,  
             }
             for favorite in favorites_items
         ]

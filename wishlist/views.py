@@ -71,6 +71,7 @@ def view_wishlist_flutter(request):
                 "category": item.restaurant.cuisine,
                 "image_url": item.restaurant.image,
                 "rating": 5,
+                "is_favorite":'yes',
                 "is_bookmark":'yes'
             }
             for item in wishlist_items
@@ -104,7 +105,7 @@ def add_to_wishlist_flutter(request, restaurant_id):
                 "name": item.restaurant.name,
                 "category": item.restaurant.cuisine,
                 "image_url": item.restaurant.image,
-                "rating": 5,  
+                "rating": 5,
             }
             for item in wishlist_items
         ]
