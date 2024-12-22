@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Review
@@ -48,38 +48,31 @@ def submit_review(request, restaurant_id):
 # API-based functionality for submitting reviews (for Flutter app)
 @csrf_exempt
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def submit_review_api(request, restaurant_id):
     try:
-        print(f"Request Data: {request.data}")  # Debug request data
-        print(f"Authenticated: {request.user.is_authenticated}")
-        print(f"User: {request.user}")
+        # Remove or comment out this block:
+        # if not request.user.is_authenticated:
+        #     return Response({"error": "User is not authenticated."},
+        #                     status=status.HTTP_401_UNAUTHORIZED)
 
-        # Check if user is authenticated
-        if not request.user.is_authenticated:
-            return Response({"error": "User is not authenticated."}, status=status.HTTP_401_UNAUTHORIZED)
-
-        # Get the restaurant object
         restaurant = get_object_or_404(Restaurants, id=restaurant_id)
-
-        # Prepare data for the serializer
         data = request.data.copy()
-        data['restaurant_id'] = str(restaurant.id)  # Pass restaurant_id as a string
-
-        print(f"Modified Data: {data}")  # Debug modified data
-
-        # Pass the modified data to the serializer
+        data['restaurant_id'] = str(restaurant.id)
         serializer = ReviewSerializer(data=data)
+
         if serializer.is_valid():
-            print(f"Saving review for user: {request.user.id}")  # Debug user info
-            serializer.save(user=request.user)  # Assign the logged-in user
+            # If you really need a user, handle anonymous cases here, e.g.:
+            # if request.user.is_authenticated:
+            #     serializer.save(user=request.user)
+            # else:
+            #     serializer.save(user=None)  # Make user nullable in the model if needed
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(f"Validation Errors: {serializer.errors}")  # Debug validation errors
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        print(f"Error: {str(e)}")
-        return Response({"error": "An unexpected error occurred."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": f"{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # Fetch reviews by restaurant ID (UUID)
 @api_view(['GET'])

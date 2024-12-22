@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from main.models import Restaurants
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
     rating = models.IntegerField()
     description = models.TextField()
