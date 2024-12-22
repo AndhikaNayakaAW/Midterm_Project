@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
@@ -86,5 +86,24 @@ def profile(request):
         "data": {
             "username": request.user.username,
             "email": request.user.email,
+            "password": request.user.password
         }
     })
+
+@csrf_exempt
+def logout(request):
+    auth_logout(request)
+    return JsonResponse({
+        "status": "success",
+        "message": "Logout successful!"
+    }, status=200)
+
+
+
+
+
+
+
+
+
+
